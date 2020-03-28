@@ -1,1 +1,1 @@
-#MJU_2020_spring_capstone_design
+#MJU computer engineering capstone design(2020 spring)
