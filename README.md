@@ -1,1 +1,1 @@
-# capstone_design
+#MJU_2020_spring_capstone_design
