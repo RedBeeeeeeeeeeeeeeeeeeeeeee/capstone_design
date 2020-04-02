@@ -1,0 +1,47 @@
+<html><head>
+<title>Unity</title>
+<style type="text/css">
+
+
+#left {
+	float: left;
+	width: 5%;
+	height: 85%;
+	background: gray;
+}
+#content {
+	float: left;
+	width: 90%;
+	height: 85%;
+}
+#right {
+	float: left;
+	width: 5%;
+	height: 85%;
+	background: gray;
+}
+
+#footer {
+	clear: both;
+}
+</style>
+</head>
+<body>
+	<div id="wrap">
+		<div id="header">
+			<h1>로고</h1>
+		</div>
+
+		<div id="left">장바구니</div>
+
+		<div id="content">유니티 넣을 공간</div>
+
+		<div id="right">리스트</div>
+
+		<div id="footer">
+			<h5>copyright</h5>
+		</div>
+	</div>
+
+
+</body></html>
