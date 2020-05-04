@@ -20,11 +20,5 @@ public class UserController {
 		ModelAndView mav = new ModelAndView();
 		return mav;
 	}
-	
-	@RequestMapping(value="user/signUp",method = RequestMethod.GET)
-	public ModelAndView signUp() {
-		ModelAndView mav = new ModelAndView();
-		return mav;
-	}
-	
+		
 }

@@ -1,15 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
 <html>
 <head>
-<title>Login</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+<title>Capstone</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 <style>
 body {
    font: 13px/20px 'Helvetica Neue', Helvetica, Arial, sans-serif;
    color: #333333;
-   background: #E2E2E2;
+   background: #ededed;
 }
 
 .signUp {
@@ -77,9 +79,35 @@ input {
    box-sizing: border-box;
 }
 
-.signUpInput {
+.loginInput {
    width: 100%;
    height: 50px;
+   margin-bottom: 25px;
+   padding: 0 15px 2px;
+   font-size: 17px;
+   background: white;
+   border: 2px solid #EBEBEB;
+   border-radius: 4px;
+   -webkit-box-shadow: inset 0 -2px #EBEBEB;
+   box-shadow: inset 0 -2px #EBEBEB;
+}
+
+.signUpInput {
+   width: 100%;
+   height: 30px;
+   margin-bottom: 25px;
+   padding: 0 15px 2px;
+   font-size: 17px;
+   background: white;
+   border: 2px solid #EBEBEB;
+   border-radius: 4px;
+   -webkit-box-shadow: inset 0 -2px #EBEBEB;
+   box-shadow: inset 0 -2px #EBEBEB;
+}
+
+.emailInput {
+   width: 45%;
+   height: 30px;
    margin-bottom: 25px;
    padding: 0 15px 2px;
    font-size: 17px;
@@ -179,48 +207,152 @@ input {
    padding: 0;
 }
 </style>
+</head>
+<body>
 
+<form class="signUp" id="signupForm">
+   <h1 class="signUpTitle">·Î±×ÀÎ</h1>
+   <input type="text" id="userId" class="signUpInput" placeholder="ID" autofocus onkeyup="enterKeyCheck()">
+   <input type="password" id="password" class="signUpInput" placeholder="Password" onkeyup="enterKeyCheck()">
+   <input type="button" value="·Î±×ÀÎ" onclick="loginValidation()" class="loginButton">
+   <input type="button" value="È¸¿ø°¡ÀÔ" onclick="signUpModalPop()" class="signUpButton">
+</form>
+
+<div class="modal fade" id="signUpModal" role="dialog"  tabindex="-1" aria-labelledby="modal-login-label" aria-hidden="true">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<form class="form-horizontal" method="POST" id="Frm" name="Frm">
+					<div class="modal-body" style="padding: 40px 50px; height: 480px;">
+						<form class="signUp" id="signupForm">
+						   <h1 class="signUpTitle">È¸¿ø°¡ÀÔ</h1>
+						   	
+						   <div class="fieldlabel"><label for="userId">*¾ÆÀÌµğ</label></div>
+					        <div class="formfield"><input type="text" id="signup_userId" class="signUpInput" name="userId" maxlength="20" value=""></div>
+					        
+					        <div class="fieldlabel"><label for="password">*ÆĞ½º¿öµå</label></div>
+					        <div class="formfield">
+								<input type="password" id="signup_password" class="signUpInput" name="password" maxlength="20" autocomplete="off">
+							</div>
+					
+					        <div class="fieldlabel"><label for="passwordCheck">ÆĞ½º¿öµåÈ®ÀÎ</label></div>
+					        <div class="formfield">
+								<input type="password" id="signup_passwordCheck" class="signUpInput" name="passwordCheck" maxlength="20" autocomplete="off">
+							</div>
+					       
+					        <div class="fieldlabel"><label for="username">*´Ğ³×ÀÓ</label></div>
+					        <div class="formfield"><input type="text" id="signup_username" class="signUpInput" name="username" maxlength="20" value=""></div>
+					
+					        <div class="fieldlabel"><label for="email">*ÀÌ¸ŞÀÏ</label></div>
+					        <div class="formfield"><input type="text" id="signup_email" class="emailInput" name="email" size="20" maxlength="20" 
+					             value="" autocomplete="off"><span>@</span>
+					            <input id="domain" list="domains" name="domain" placeholder="µµ¸ŞÀÎÀÔ·Â/¼±ÅÃ">
+					            <datalist id="domains">
+					                <option value="naver.com">
+					                <option value="daum.net">
+					                <option value="gmail.com">
+					                <option value="yahoo.co.kr">
+					            </datalist>
+					        </div>
+						   <input type="button" value="°¡ÀÔ" onclick="signUpValidation()" class="signUpButton">
+						</form>
+					</div>
+				<div class="modal-footer">
+				</div>
+				</form>
+			</div>
+		</div>
+</div>
 <script type="text/javascript">
 
 function loginValidation(){
 	
-	var userId = $("#userId").val();
-	var password = $("#password").val();
+	var vuserId = $("#userId").val();
+	var vpassword = $("#password").val();
 	
-	if(!userId){
-		alert("ì•„ì´ë””ë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
+	if(!vuserId){
 		$("#userId").focus();
 		return false;
-	}else if(!password){
-		alert("ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
+	}else if(!vpassword){
 		$("#password").focus();
 		return false;
 	}else {
-		login(userId,password);
+		login(vuserId,vpassword);
 	}
 	
 }
 
-function login(userId,password){
-	
+function login(userid,userpw){
 	$.ajax({
-		
-		url : "/jquery/login",
+		url : "/user/jquery/login.do",
 		type : 'POST',
-		data : { userId : userId, 
-				password : password	
+		data : { userId : userid, 
+				password : userpw	
 		},
 		success:function(data){
 			if(data == 2){
-				alert("ì•„ì´ë”” í˜¹ì€ ë¹„ë°€ë²ˆí˜¸ê°€ ë§ì§€ ì•ŠìŠµë‹ˆë‹¤.");
+				alert("¾ÆÀÌµğ È¤Àº ºñ¹Ğ¹øÈ£°¡ ¸ÂÁö ¾Ê½À´Ï´Ù.");
 				return false;
 			}else if(data == 3){
 				location.href="/user/home";
 			}
-		}
-		
+		}		
 	})
 	
+}
+
+function signUpValidation(){
+	
+	var userId = $("#signup_userId").val();
+	var userPw = $("#signup_password").val();
+	var userPwCheck = $("#signup_passwordCheck").val();
+	var userName = $("#signup_username").val();
+	var email = $("#signup_email").val();
+	
+	if(!userId){
+		alert("¾ÆÀÌµğ ÀÔ·ÂÀº ÇÊ¼öÀÔ´Ï´Ù.");
+		$("#signup_userId").focus();
+	}else if(!userPw){
+		alert("ºñ¹Ğ¹øÈ£ ÀÔ·ÂÀº ÇÊ¼öÀÔ´Ï´Ù.");
+		$("#signup_password").focus();
+	}else if(!userPwCheck){
+		alert("ºñ¹Ğ¹øÈ£ È®ÀÎ ÀÔ·ÂÀº ÇÊ¼öÀÔ´Ï´Ù.");
+		$("#signup_passwordCheck").focus();
+	}else if(userPw != userPwCheck){
+		alert("ºñ¹Ğ¹øÈ£°¡ ¸ÂÁö ¾Ê½À´Ï´Ù.");
+		$("#signup_userPwCheck").focus();		
+	}else if(!userName){
+		alert("ÀÌ¸§ ÀÔ·ÂÀº ÇÊ¼öÀÔ´Ï´Ù.");
+		$("#signup_username").focus();
+	}else {
+		signUp(userId, userPw, userName);
+	}
+	
+}
+
+
+function signUp(id, pw, name){
+	$.ajax({
+		url : "/user/jquery/signUp.do",
+		type:'POST',
+		data :  { userId : id,
+			userPw : pw,
+			userName : name
+		},
+		success:function(data){
+			if(data==1){
+				alert("È¸¿ø°¡ÀÔÀÌ ¿Ï·áµÆ½À´Ï´Ù.");
+				$('#signUpModal').modal("hide");
+			}else if(data==2){
+				alert("ÀÌ¹Ì Á¸ÀçÇÏ´Â ¾ÆÀÌµğÀÔ´Ï´Ù.");
+				return false;
+			}else if(data==3){
+				alert("ÀÌ¹Ì Á¸ÀçÇÏ´Â ÀÌ¸§ÀÔ´Ï´Ù.");
+				return false;
+			} else {
+			}
+		}
+	})
 }
 
 function enterKeyCheck(){
@@ -233,18 +365,30 @@ function enterKeyCheck(){
 	
 }
 
+function signUpModalPop(){
+	
+	$('#signUpModal').modal('show');
+	/*
+	$('#signUpModal').on('show.bs.modal', function (e) {
+		console.log("show.bs.modal");
+	});
+	$('#signUpModal').on('shown.bs.modal', function (e) {
+		console.log("shown.bs.modal");
+	});
+	$('#signUpModal').on('hide.bs.modal', function (e) {
+		console.log("hide.bs.modal");
+	});
+	$('#signUpModal').on('hidden.bs.modal', function (e) {
+		console.log("hidden.bs.modal");
+	});
+	*/
+}
+
+function signUpModalPopOff(){
+	alert("signUpModalPopOff");
+	$('#signUpModal').modal('hide');	
+}
+
 </script>
-
-</head>
-<body>
-
-<form class="signUp" id="signupForm">
-   <h1 class="signUpTitle">ë¡œê·¸ì¸</h1>
-   <input type="text" id="userId" class="signUpInput" placeholder="ID" autofocus onkeyup="enterKeyCheck()">
-   <input type="password" id="password" class="signUpInput" placeholder="Password" onkeyup="enterKeyCheck()">
-   <input type="button" value="ë¡œê·¸ì¸" onclick="loginValidation()" class="loginButton">
-   <input type="button" value="íšŒì›ê°€ì…" onclick="location.href='/user/signUp'" class="signUpButton">
-</form>
-
 </body>
 </html>
