@@ -3,10 +3,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Capstone</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!--
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
 <style>
 body {
    font: 13px/20px 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -17,7 +21,7 @@ body {
 .signUp {
    position: relative;
    margin: 50px auto;
-   width: 280px;
+   width: 320px;
    padding: 33px 25px 29px;
    background: #FFFFFF;
    border-bottom: 1px solid #C4C4C4;
@@ -71,6 +75,14 @@ body {
    background-image: linear-gradient(to right, #C4E17F, #C4E17F 12.5%, #F7FDCA 12.5%, #F7FDCA 25%, #FECF71 25%, #FECF71 37.5%, #F0776C 37.5%, #F0776C 50%, #DB9DBE 50%, #DB9CBE 62.5%, #c49cde 62.5%, #C49CDE 75%, #669AE1 75%, #669AE1 87.5%, #62c2e4 87.5%, #62C2E4);
 }
 
+
+.modal-dialog {
+   position: relative;
+   width: 430px;
+   margin: 40px auto;
+}
+
+
 input {
    font-family: inherit;
    color: inherit;
@@ -95,7 +107,7 @@ input {
 .signUpInput {
    width: 100%;
    height: 30px;
-   margin-bottom: 25px;
+   margin-bottom: 5px;
    padding: 0 15px 2px;
    font-size: 17px;
    background: white;
@@ -106,7 +118,7 @@ input {
 }
 
 .emailInput {
-   width: 45%;
+   width: 44%;
    height: 30px;
    margin-bottom: 25px;
    padding: 0 15px 2px;
@@ -210,184 +222,186 @@ input {
 </head>
 <body>
 
-<form class="signUp" id="signupForm">
+<form class="signUp" id="signinForm">
    <h1 class="signUpTitle">로그인</h1>
-   <input type="text" id="userId" class="signUpInput" placeholder="ID" autofocus onkeyup="enterKeyCheck()">
-   <input type="password" id="password" class="signUpInput" placeholder="Password" onkeyup="enterKeyCheck()">
+   <input type="text" id="userId" class="loginInput" placeholder="ID" autofocus onkeyup="enterKeyCheck()">
+   <input type="password" id="password" class="loginInput" placeholder="Password" onkeyup="enterKeyCheck()">
    <input type="button" value="로그인" onclick="loginValidation()" class="loginButton">
    <input type="button" value="회원가입" onclick="signUpModalPop()" class="signUpButton">
 </form>
 
 <div class="modal fade" id="signUpModal" role="dialog"  tabindex="-1" aria-labelledby="modal-login-label" aria-hidden="true">
-		<div class="modal-dialog">
-			<!-- Modal content-->
-			<div class="modal-content">
-				<form class="form-horizontal" method="POST" id="Frm" name="Frm">
-					<div class="modal-body" style="padding: 40px 50px; height: 480px;">
-						<form class="signUp" id="signupForm">
-						   <h1 class="signUpTitle">회원가입</h1>
-						   	
-						   <div class="fieldlabel"><label for="userId">*아이디</label></div>
-					        <div class="formfield"><input type="text" id="signup_userId" class="signUpInput" name="userId" maxlength="20" value=""></div>
-					        
-					        <div class="fieldlabel"><label for="password">*패스워드</label></div>
-					        <div class="formfield">
-								<input type="password" id="signup_password" class="signUpInput" name="password" maxlength="20" autocomplete="off">
-							</div>
-					
-					        <div class="fieldlabel"><label for="passwordCheck">패스워드확인</label></div>
-					        <div class="formfield">
-								<input type="password" id="signup_passwordCheck" class="signUpInput" name="passwordCheck" maxlength="20" autocomplete="off">
-							</div>
-					       
-					        <div class="fieldlabel"><label for="username">*닉네임</label></div>
-					        <div class="formfield"><input type="text" id="signup_username" class="signUpInput" name="username" maxlength="20" value=""></div>
-					
-					        <div class="fieldlabel"><label for="email">*이메일</label></div>
-					        <div class="formfield"><input type="text" id="signup_email" class="emailInput" name="email" size="20" maxlength="20" 
-					             value="" autocomplete="off"><span>@</span>
-					            <input id="domain" list="domains" name="domain" placeholder="도메인입력/선택">
-					            <datalist id="domains">
-					                <option value="naver.com">
-					                <option value="daum.net">
-					                <option value="gmail.com">
-					                <option value="yahoo.co.kr">
-					            </datalist>
-					        </div>
-						   <input type="button" value="가입" onclick="signUpValidation()" class="signUpButton">
-						</form>
-					</div>
-				<div class="modal-footer">
-				</div>
-				</form>
-			</div>
-		</div>
+      <div class="modal-dialog">
+         <!-- Modal content-->
+         <div class="modal-content">
+            <!--  <div class="modal-header" style="padding: 30px 30px;">                
+            </div> -->
+            <form class="form-horizontal" method="POST" id="Frm" name="Frm"> 
+               <div class="modal-body" style="padding: 30px 40px; height: 480px;">
+                  <form class="signUp" id="signupForm">
+                     <h1 class="signUpTitle">회원가입</h1>
+                     
+                     <div class="fieldlabel"><label for="userId">*아이디</label></div>
+                       <div class="formfield"><input type="text" id="signup_userId" class="signUpInput" name="userId" maxlength="20" value=""></div>
+                       
+                       <div class="fieldlabel"><label for="password">*패스워드</label></div>
+                       <div class="formfield">
+                        <input type="password" id="signup_password" class="signUpInput" name="password" maxlength="20" autocomplete="off">
+                     </div>
+               
+                       <div class="fieldlabel"><label for="passwordCheck">패스워드확인</label></div>
+                       <div class="formfield">
+                        <input type="password" id="signup_passwordCheck" class="signUpInput" name="passwordCheck" maxlength="20" autocomplete="off">
+                     </div>
+                      
+                       <div class="fieldlabel"><label for="username">*닉네임</label></div>
+                       <div class="formfield"><input type="text" id="signup_username" class="signUpInput" name="username" maxlength="20" value=""></div>
+               
+                       <div class="fieldlabel"><label for="email">*이메일</label></div>
+                       <div class="formfield"><input type="text" id="signup_email" class="emailInput" name="email" size="20" maxlength="20" 
+                            value="" autocomplete="off"><span>@</span>
+                           <input id="domain" list="domains" name="domain" placeholder="도메인입력/선택">
+                           <datalist id="domains">
+                               <option value="naver.com">
+                               <option value="daum.net">
+                               <option value="gmail.com">
+                               <option value="yahoo.co.kr">
+                           </datalist>
+                       </div>
+                     <input type="button" value="가입" onclick="signUpValidation()" class="signUpButton">
+                  </form>
+               </div>
+            <div class="modal-footer">
+            </div>
+            </form>
+         </div>
+      </div>
 </div>
 <script type="text/javascript">
 
 function loginValidation(){
-	
-	var vuserId = $("#userId").val();
-	var vpassword = $("#password").val();
-	
-	if(!vuserId){
-		$("#userId").focus();
-		return false;
-	}else if(!vpassword){
-		$("#password").focus();
-		return false;
-	}else {
-		login(vuserId,vpassword);
-	}
-	
+   
+   var vuserId = $("#userId").val();
+   var vpassword = $("#password").val();
+   
+   if(!vuserId){
+      alert("아이디를 입력하세요.");
+      $("#userId").focus();
+      return false;
+   }else if(!vpassword){
+      alert("비밀번호를 입력하세요.");
+      $("#password").focus();
+      return false;
+   }else {
+      login(vuserId,vpassword);
+   }
+   
 }
 
 function login(userid,userpw){
-	$.ajax({
-		url : "/user/jquery/login.do",
-		type : 'POST',
-		data : { userId : userid, 
-				password : userpw	
-		},
-		success:function(data){
-			if(data == 2){
-				alert("아이디 혹은 비밀번호가 맞지 않습니다.");
-				return false;
-			}else if(data == 3){
-				location.href="/user/home";
-			}
-		}		
-	})
-	
+
+   $.ajax({
+      url : "jquery/login.do",
+      type : 'POST',
+      data : { userId : userid, 
+            password : userpw   
+      },
+      success:function(data){
+         if(data == 2){
+            alert("아이디 혹은 비밀번호가 맞지 않습니다.");
+            return false;
+         }else if(data == 3){
+            location.href="/";
+         }
+      },
+      error:function(e){
+            alert(e.responseText); 
+      },
+      complete : function(data) {
+           //alert("complete : " + data);
+       }
+      
+   })
+   
 }
 
 function signUpValidation(){
-	
-	var userId = $("#signup_userId").val();
-	var userPw = $("#signup_password").val();
-	var userPwCheck = $("#signup_passwordCheck").val();
-	var userName = $("#signup_username").val();
-	var email = $("#signup_email").val();
-	
-	if(!userId){
-		alert("아이디 입력은 필수입니다.");
-		$("#signup_userId").focus();
-	}else if(!userPw){
-		alert("비밀번호 입력은 필수입니다.");
-		$("#signup_password").focus();
-	}else if(!userPwCheck){
-		alert("비밀번호 확인 입력은 필수입니다.");
-		$("#signup_passwordCheck").focus();
-	}else if(userPw != userPwCheck){
-		alert("비밀번호가 맞지 않습니다.");
-		$("#signup_userPwCheck").focus();		
-	}else if(!userName){
-		alert("이름 입력은 필수입니다.");
-		$("#signup_username").focus();
-	}else {
-		signUp(userId, userPw, userName);
-	}
-	
+   
+   var userId = $("#signup_userId").val();
+   var userPw = $("#signup_password").val();
+   var userPwCheck = $("#signup_passwordCheck").val();
+   var userName = $("#signup_username").val();
+   var email = $("#signup_email").val();
+   
+   if(!userId){
+      alert("아이디 입력은 필수입니다.");
+      $("#signup_userId").focus();
+   }else if(!userPw){
+      alert("비밀번호 입력은 필수입니다.");
+      $("#signup_password").focus();
+   }else if(!userPwCheck){
+      alert("비밀번호 확인 입력은 필수입니다.");
+      $("#signup_passwordCheck").focus();
+   }else if(userPw != userPwCheck){
+      alert("비밀번호가 맞지 않습니다.");
+      $("#signup_userPwCheck").focus();      
+   }else if(!userName){
+      alert("이름 입력은 필수입니다.");
+      $("#signup_username").focus();
+   }else {
+      signUp(userId, userPw, userName);
+   }
+   
 }
 
 
 function signUp(id, pw, name){
-	$.ajax({
-		url : "/user/jquery/signUp.do",
-		type:'POST',
-		data :  { userId : id,
-			userPw : pw,
-			userName : name
-		},
-		success:function(data){
-			if(data==1){
-				alert("회원가입이 완료됐습니다.");
-				$('#signUpModal').modal("hide");
-			}else if(data==2){
-				alert("이미 존재하는 아이디입니다.");
-				return false;
-			}else if(data==3){
-				alert("이미 존재하는 이름입니다.");
-				return false;
-			} else {
-			}
-		}
-	})
+
+   $.ajax({
+      url : "jquery/signUp.do",
+      type:'POST',
+      data :  { userId : id,
+         userPw : pw,
+         userName : name
+      },
+      success:function(data){
+         if(data==1){
+            alert("회원가입이 완료됐습니다.^^");
+            $('#signUpModal').modal('hide');
+         }else if(data==2){
+            alert("이미 존재하는 아이디입니다.");
+            return false;
+         }else if(data==3){
+            alert("이미 존재하는 이름입니다.");
+            return false;
+         } else {
+            alert("data==0.");
+         }
+      },
+      error:function(e){
+          alert(e.responseText);          },
+        complete : function(data) {
+           //alert("complete : " + data);
+        }
+      
+   })
 }
 
 function enterKeyCheck(){
-	
+   
  if(event.keyCode == 13)
-	  {
-	 loginValidation();
-	  }
-	
-	
+     {
+    loginValidation();
+     }
+   
+   
 }
 
 function signUpModalPop(){
-	
-	$('#signUpModal').modal('show');
-	/*
-	$('#signUpModal').on('show.bs.modal', function (e) {
-		console.log("show.bs.modal");
-	});
-	$('#signUpModal').on('shown.bs.modal', function (e) {
-		console.log("shown.bs.modal");
-	});
-	$('#signUpModal').on('hide.bs.modal', function (e) {
-		console.log("hide.bs.modal");
-	});
-	$('#signUpModal').on('hidden.bs.modal', function (e) {
-		console.log("hidden.bs.modal");
-	});
-	*/
+   $('#signUpModal').modal('show');
 }
 
-function signUpModalPopOff(){
-	alert("signUpModalPopOff");
-	$('#signUpModal').modal('hide');	
-}
+
 
 </script>
 </body>

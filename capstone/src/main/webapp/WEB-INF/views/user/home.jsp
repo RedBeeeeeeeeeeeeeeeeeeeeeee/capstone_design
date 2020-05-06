@@ -61,32 +61,73 @@
 
 		<div id=content>
 			<div id="left">
-				<i class="fas fa-couch" aria-hidden="true" style="margin-left: 6px; margin-right: 10px; margin-top: 270px; font-size: 3em; color: #482b19; width: 10%; float: left"></i>
+				<i class="fas fa-couch" aria-hidden="true"
+					style="margin-left: 6px; margin-right: 10px; margin-top: 270px; font-size: 3em; color: #482b19; width: 10%; float: left"></i>
 				<div id="list">
+
 					<div id="kategorie">
-						<ul class = "Menu">
-							<li class = "menu">
-								Menu
-								<ul class = "subMenu">
-								<li>책상</li>
-								<li>의자</li>
-								<li>쇼파</li>
-								<li>침대</li>
-								<li>옷장</li>
-								<li>화장대</li>
-								<li>선반</li>
-								<li>기타</li>
-								</ul>
-							</li>
-						</ul>
+
+						<div id="find">
+							<ul class="Menu">
+								<li id="type">Type
+									<ul class="subMenu">
+										<li id="Type" onclick="findType(this)">Type</li>
+										<li id="책상" onclick="findType(this)">책상</li>
+										<li id="의자" onclick="findType(this)">의자</li>
+										<li id="쇼파" onclick="findType(this)">쇼파</li>
+										<li id="침대" onclick="findType(this)">침대</li>
+										<li id="옷장" onclick="findType(this)">옷장</li>
+										<li id="화장대" onclick="findType(this)">화장대</li>
+										<li id="선반" onclick="findType(this)">선반</li>
+										<li id="기타" onclick="findType(this)">기타</li>
+									</ul>
+								</li>
+
+								<li id="brand">Brand
+									<ul class="subMenu">
+										<li id="Brand" onclick="findBrand(this)">Brand</li>
+										<li id="브랜드1" onclick="findBrand(this)">브랜드1</li>
+										<li id="브랜드2" onclick="findBrand(this)">브랜드2</li>
+										<li id="브랜드3" onclick="findBrand(this)">브랜드3</li>
+										<li id="브랜드4" onclick="findBrand(this)">브랜드4</li>
+										<li id="브랜드5" onclick="findBrand(this)">브랜드5</li>
+									</ul>
+								</li>
+
+								<li id="color">Color
+									<ul class="subMenu">
+										<li id="Color" onclick="findColor(this)">Color</li>
+										<li id="색깔1" onclick="findColor(this)">색깔1</li>
+										<li id="색깔2" onclick="findColor(this)">색깔2</li>
+										<li id="색깔3" onclick="findColor(this)">색깔3</li>
+										<li id="색깔4" onclick="findColor(this)">색깔4</li>
+										<li id="색깔5" onclick="findColor(this)">색깔5</li>
+									</ul>
+								</li>
+
+
+								<li id="price">Price
+									<ul class="subMenu">
+										<li id="Price" onclick="findPrice(this)">Price</li>
+										<li id="가격1" onclick="findPrice(this)">가격1</li>
+										<li id="가격2" onclick="findPrice(this)">가격2</li>
+										<li id="가격3" onclick="findPrice(this)">가격3</li>
+										<li id="가격4" onclick="findPrice(this)">가격4</li>
+										<li id="가격5" onclick="findPrice(this)">가격5</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+
+						<div id="search">
+							<button type="button" class="fas fa-search" onclick = "showList()"
+								style="font-size: 20px;"></button>
+						</div>
+
 					</div>
-				
-					<div id="search">
-							<input name="keyword" type = "text" onFocus="this.value= '';return true;">
-						 	<button type="submit" onclick="reload()">search</button>
-					</div>
-					<div id="listview">
-					</div>
+
+					<div id="listview"></div>
+
 				</div>
 			</div>
 
@@ -109,17 +150,43 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<script type="text/javascript">
-		function reload() {
-			$("#left #list #listview").load("/user/home #left #list #listview ")
+
+		
+		function findType(e) {
+			type = document.getElementById('type');
+			type.innerHTML = "<li id = 'type' style = 'list-style:none'>"
+					+ e.innerText
+					+ "<ul class = 'subMenu'><li id = 'Type' onclick = 'findType(this)'>Type</li><li id = '책상' onclick = 'findType(this)'>책상</li><li id = '의자' onclick = 'findType(this)'>의자</li><li id = '쇼파' onclick = 'findType(this)'>쇼파</li><li id = '침대' onclick = 'findType(this)'>침대</li><li id = '옷장' onclick = 'findType(this)'>옷장</li><li id = '화장대' onclick = 'findType(this)'>화장대</li><li id = '선반' onclick = 'findType(this)'>선반</li><li id = '기타' onclick = 'findType(this)'>기타</li></ul></li>";
 		}
 		
-		function (){
-			
+		function findBrand(e){
+			brand = document.getElementById('brand');
+			brand.innerHTML = "<li id = 'brand' style = 'list-style:none'>"
+					+ e.innerText
+					+"<ul class='subMenu'><li id='Brand' onclick='findBrand(this)'>Brand</li>	<li id='브랜드1' onclick='findBrand(this)'>브랜드1</li>	<li id='브랜드2' onclick='findBrand(this)'>브랜드2</li>	<li id='브랜드3' onclick='findBrand(this)'>브랜드3</li>	<li id='브랜드4' onclick='findBrand(this)'>브랜드4</li>	<li id='브랜드5' onclick='findBrand(this)'>브랜드5</li>	</ul></li>"
 		}
 		
+		function findColor(e){
+			color = document.getElementById('color');
+			color.innerHTML = "<li id = 'color' style = 'list-style:none'>"
+					+ e.innerText
+					+ "<ul class='subMenu'><li id='Color' onclick='findColor(this)'>Color</li><li id='색깔1' onclick='findColor(this)'>색깔1</li><li id='색깔2' onclick='findColor(this)'>색깔2</li>	<li id='색깔3' onclick='findColor(this)'>색깔3</li>	<li id='색깔4' onclick='findColor(this)'>색깔4</li>	<li id='색깔5' onclick='findColor(this)'>색깔5</li>	</ul></li>"
+		}
 		
+		function findPrice(e){
+			price = document.getElementById('price');
+			price.innerHTML = "<li id = 'price' style = 'list-style:none'>"
+					+ e.innerText
+					+ "<ul class='subMenu'>	<li id='Price' onclick='findPrice(this)'>Price</li><li id='가격1' onclick='findPrice(this)'>가격1</li>	<li id='가격2' onclick='findPrice(this)'>가격2</li>	<li id='가격3' onclick='findPrice(this)'>가격3</li>	<li id='가격4' onclick='findPrice(this)'>가격4</li>	<li id='가격5' onclick='findPrice(this)'>가격5</li>	</ul></li>"
+		}
+		
+		function showList(){
+			alert(type.innerText +" "+ brand.innerText +" "+ color.innerText +" "+ price.innerText);
+			$("#left #list #listview").load("/user/home #left #list #listview");
+		}
+
 		function logoutCall() {
 			$.ajax({
 				url : "/jquery/logout.do",
@@ -134,6 +201,6 @@
 			})
 		}
 	</script>
-	
+
 </body>
 </html>
