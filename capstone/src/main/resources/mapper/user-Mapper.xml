@@ -7,9 +7,6 @@
 		<if test="userId != null">
 			where userId = #{userId};
 		</if>
-		<if test="nickname != null">
-			where nickname = #{nickname};
-		</if>
 	</select>
 
 	<insert id="userJoin">

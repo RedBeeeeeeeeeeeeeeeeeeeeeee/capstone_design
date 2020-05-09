@@ -183,10 +183,21 @@
 		}
 		
 		function showList(){
-			alert(type.innerText +" "+ brand.innerText +" "+ color.innerText +" "+ price.innerText);
+			var values =[];
+			alert(type.innerText+" "+brand.innerText+" "+color.innerText+" "+price.innerText);
+			$.ajax({
+				url : "/jquery/list.do",
+				type : 'POST',
+				data : {type : type.innerText, brand : brand.innerText, color : color.innerText, price : price.innerText},
+				success : function(check){
+					for(var i = 0 in check){
+						alert(check[i].num+" "+check[i].furnName+" "+check[i].type+" "+check[i].brand+" "+check[i].price+" "+check[i].imgLink+" "+check[i].detailLink);
+					}
+				}
+			})
 			$("#left #list #listview").load("/user/home #left #list #listview");
 		}
-
+		
 		function logoutCall() {
 			$.ajax({
 				url : "/jquery/logout.do",

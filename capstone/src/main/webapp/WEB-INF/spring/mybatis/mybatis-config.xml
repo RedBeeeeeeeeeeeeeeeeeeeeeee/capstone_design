@@ -3,9 +3,11 @@
 <configuration>
     <typeAliases>
         <typeAlias alias="members" type="com.capstone.project.logic.Members"/>
+        <typeAlias alias="lists" type="com.capstone.project.logic.Lists"/>
     </typeAliases>
 
     <mappers>
         <mapper resource="mapper/user-Mapper.xml"/>
+        <mapper resource="mapper/list-Mapper.xml"/>
     </mappers>
 </configuration>

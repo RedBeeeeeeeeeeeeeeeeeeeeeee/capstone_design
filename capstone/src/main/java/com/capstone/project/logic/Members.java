@@ -1,8 +1,4 @@
 package com.capstone.project.logic;
-
-
-import java.util.Date;
-
 public class Members {
 
 	private int id;
@@ -12,11 +8,7 @@ public class Members {
 	private String email;
 	private int authority;
 	private int declaration;
-	private Date last_login;
-	private Date create_time;
-	private Date update_time;
-	
-	private String domain;
+
 
 	public int getId() {
 		return id;
@@ -74,36 +66,7 @@ public class Members {
 		this.declaration = declaration;
 	}
 
-	public Date getLast_login() {
-		return last_login;
-	}
 
-	public void setLast_login(Date last_login) {
-		this.last_login = last_login;
-	}
 
-	public Date getCreate_time() {
-		return create_time;
-	}
-
-	public void setCreate_time(Date create_time) {
-		this.create_time = create_time;
-	}
-
-	public Date getUpdate_time() {
-		return update_time;
-	}
-
-	public void setUpdate_time(Date update_time) {
-		this.update_time = update_time;
-	}
-
-	public String getDomain() {
-		return domain;
-	}
-
-	public void setDomain(String domain) {
-		this.domain = domain;
-	}
 	
 }
