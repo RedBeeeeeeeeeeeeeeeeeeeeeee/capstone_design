@@ -7,5 +7,4 @@ import com.capstone.project.logic.Lists;
 public interface ListService {
 
 	List<Lists> getListOne(String type, String brand, String price);
-
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.capstone.project.logic.Lists;
 import com.capstone.project.logic.Members;
 import com.capstone.project.service.UserService;
 
@@ -90,6 +91,14 @@ public class UserController {
 	public ModelAndView login() {
 		ModelAndView mav = new ModelAndView();
 		return mav;
+	}
+	
+	
+	@RequestMapping(value="/jquery/save.do",method = RequestMethod.POST)
+	public @ResponseBody int save(Lists lists,HttpSession session, HttpServletRequest httpServletRequest) {
+		int save  = userService.setFurn(httpServletRequest.getParameter("route"));
+
+		return save;
 	}
 		
 }

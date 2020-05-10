@@ -9,4 +9,6 @@ public interface UserService {
 
 	int userJoin(Members members);
 
+	int setFurn(String route);
+
 }

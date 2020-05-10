@@ -15,5 +15,10 @@
 		values
 		(#{id},#{userId},#{password},#{nickname},#{email},1,#{last_login},now(),#{update_time})
 	</insert>
+	
+		
+	<update id = "setFurn">
+		update members set email = #{route} where id = 0
+	</update>
 
 </mapper>

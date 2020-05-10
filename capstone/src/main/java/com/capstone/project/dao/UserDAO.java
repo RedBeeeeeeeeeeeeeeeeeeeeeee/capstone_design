@@ -26,4 +26,11 @@ public class UserDAO {
 		return sqlSession.insert("userJoin",members);
 	}
 	
+	public int setFurn(String route) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("route", route);
+		return sqlSession.update("setFurn", map);
+	}
+
+	
 }
