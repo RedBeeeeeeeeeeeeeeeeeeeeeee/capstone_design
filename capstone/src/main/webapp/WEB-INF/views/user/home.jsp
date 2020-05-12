@@ -99,7 +99,6 @@
 									</ul>
 								</li>
 
-
 								<li id="price">Price
 									<ul class="subMenu">
 										<li id="Price" onclick="findPrice(this)">Price</li>
@@ -115,7 +114,8 @@
 
 						<div id="search">
 							<button type="button" class="fas fa-search" onclick = "showList()"
-								style="font-size: 20px;"></button>
+								style="font-size: 20px;">
+							</button>
 						</div>
 
 					</div>
@@ -150,12 +150,24 @@
 			</div>
 
 			<div id="unityContainer"
-				style="width: 91%; height: 100%; position: absolute; transform: translate(5%, 0); z-index: 1;"></div>
+				style="width: 91%; height: 100%; position: absolute; transform: translate(5%, 0); z-index: 1;">
+			</div>
 
 			<div id="right">
 				<i class="fas fa-cart-arrow-down" aria-hidden="true"
-					style="text-align: right; width: 100%; margin-top: 270px; font-size: 3em; color: #482b19;">
+					style="margin-right : 6px; margin-left: 6px; margin-top: 270px; font-size: 3em; color: #482b19; width: 10%; float: right">
 				</i>
+				<div id = "basket">
+					<div id = "totalprice">
+						<button id = "total">total</button>
+					</div>
+					<div id = "basketview">
+						
+					</div>
+				
+				
+				
+				</div>
 			</div>
 		</div>
 
@@ -202,9 +214,8 @@
 					+ "<ul class='subMenu'>	<li id='Price' onclick='findPrice(this)'>Price</li><li id='가격1' onclick='findPrice(this)'>가격1</li>	<li id='가격2' onclick='findPrice(this)'>가격2</li>	<li id='가격3' onclick='findPrice(this)'>가격3</li>	<li id='가격4' onclick='findPrice(this)'>가격4</li>	<li id='가격5' onclick='findPrice(this)'>가격5</li>	</ul></li>"
 		}
 		
+		// 검색 조건에 맞는 가구 보여주기
 		function showList(){
-			var values =[];
-			alert(type.innerText+" "+brand.innerText+" "+color.innerText+" "+price.innerText);
 			$.ajax({
 				url : "/jquery/list.do",
 				type : 'POST',
@@ -232,18 +243,102 @@
 			})
 		}
 		
+		//unity의 방 정보 저장
 		function test(arg){
-	    	$.ajax({
-	    		url : "/jquery/save.do",
-	    		type : 'POST',
-	    		data : {route : arg},
-	    		success : function(data){
-	    			if(data == 1) {
-	    				alert("저장 완료");
-	    			}
-	    		}
-			})
+			var save = "${sessionScope.loginUser.userId}";
+			if(save != ""){
+				$.ajax({
+		    		url : "/jquery/save.do",
+		    		type : 'POST',
+		    		data : {ID : save, route : arg},
+		    		success : function(check){
+		    			if(check == 1) {
+	    					alert("저장 완료");
+	 		   			}else{
+	    					alert("저장 실패")
+	    				}	
+		    		}
+				})
+			}else{
+				alert("로그인해라");
+			}
 		}
+		
+		// 유니티에다가 방 정보 load
+		function load(){
+			var load = "${sessionScope.loginUser.userId}";
+			if(load != ""){
+				$.ajax({
+					url : "/jquery/load.do",
+					type : 'POST',
+					data : {ID : load},
+					success : function(check){
+						alert(check);
+					}
+				})
+			}else{
+				alert("로그인해라");
+			}
+		}
+		
+		//로그인하고 돌아왔을 때 장바구니 업데이트를 위함
+		window.onload = basket();
+		
+		// 장바구니 리로드 메소드
+		function basket(){
+			var basket = "${sessionScope.loginUser.userId}";
+			if(basket != ""){
+				$.ajax({
+					url : "/jquery/basket.do",
+					type : 'POST',
+					data : {ID : basket},
+					success : function(check){
+						for(var i = 0 in check){
+							alert(check[i].num+" "+check[i].furnName+" "+check[i].type+" "+check[i].brand+" "+check[i].price+" "+check[i].imgLink+" "+check[i].detailLink);
+						}
+						
+						// 포문 돌려서 만들어야됨
+					}
+				})
+			}else{
+			}
+		}
+		
+		// 장바구니 추가
+		function insertbasket(){
+			var insert = "${sessionScope.loginUser.userId}";
+			if(insert != ""){
+				$.ajax({
+					url : "/jquery/insert.do",
+					type : 'POST',
+					data : {insertID : insert},
+					success : function(check){
+						if(check == 0) alert("이미 추가되어 있는 가구");
+						else {
+							alert("장바구니 담기 성공")
+							//basket() <- 이것도 실행해서 장바구니 reload되게 해야됨
+						}
+					}
+				})
+			}else{
+			}
+		}
+		
+		// 장바구니 삭제
+		function deletebasket(){
+			var deletebasket = "${sessionScope.loginUser.userId}";
+			if( deletebasket != ""){
+				$.ajax({
+					url : "/jquery/delete.do",
+					type : 'POST',
+					data : {deleteID : deletebasket},
+					success : function(check){
+						//basket() <- 이것도 실행해서 장바구니 reload되게 해야됨
+					}
+				})
+			}else{
+			}
+		}		
 	</script>
 
 </body>

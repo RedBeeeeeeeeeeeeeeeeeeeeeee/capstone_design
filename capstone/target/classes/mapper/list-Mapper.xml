@@ -14,9 +14,15 @@
 			<if test="price != 'Price'">
 				AND price = #{price}
 			</if>
-		
 		</where>
-		
+	</select>
+	
+	<select id="getBasketList" resultType="lists">
+		SELECT	b.num, f.furnName, f.type, f.brand, f.price, f.imgLink, f.detailLink 
+		FROM basket b
+		JOIN furnlist f
+		ON b.num = f.num
+		WHERE b.ID = #{ID}	
 	</select>
 
 </mapper>

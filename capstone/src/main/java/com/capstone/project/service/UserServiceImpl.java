@@ -21,9 +21,14 @@ public class UserServiceImpl implements UserService {
 	public int userJoin(Members members) {
 		return userDAO.userJoin(members);
 	}
-	
-	   @Override
-	   public int setFurn(String route) {
-		   return userDAO.setFurn(route);
-	   }
+
+	@Override
+	public int setFurn(String ID, String route) {
+		return userDAO.setFurn(ID, route);
+	}
+
+	@Override
+	public String getFurn(String ID) {
+		return userDAO.getFurn(ID);
+	}
 }

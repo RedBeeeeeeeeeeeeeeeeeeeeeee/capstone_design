@@ -1,5 +1,7 @@
 package com.capstone.project.controller;
 
+
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -10,13 +12,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.capstone.project.logic.Lists;
 import com.capstone.project.logic.Members;
 import com.capstone.project.service.UserService;
 
 @Controller
 public class UserController {
-	
+
 	@Autowired
 	UserService userService;
 
@@ -86,19 +87,26 @@ public class UserController {
 		ModelAndView mav = new ModelAndView();
 		return mav;
 	}
-	
+
 	@RequestMapping(value="user/login",method = RequestMethod.GET)
 	public ModelAndView login() {
 		ModelAndView mav = new ModelAndView();
 		return mav;
 	}
-	
-	
+
+
 	@RequestMapping(value="/jquery/save.do",method = RequestMethod.POST)
-	public @ResponseBody int save(Lists lists,HttpSession session, HttpServletRequest httpServletRequest) {
-		int save  = userService.setFurn(httpServletRequest.getParameter("route"));
+	public @ResponseBody int save(Members member,HttpSession session, HttpServletRequest httpServletRequest) {
+		int save  = userService.setFurn(httpServletRequest.getParameter("ID"),httpServletRequest.getParameter("route"));
+		return save;
+	}
+
+	@RequestMapping(value="/jquery/load.do",method = RequestMethod.POST)
+	public @ResponseBody String load(Members member,HttpSession session, HttpServletRequest httpServletRequest) {
+
+		String save  = userService.getFurn(httpServletRequest.getParameter("ID"));
 
 		return save;
 	}
-		
+
 }

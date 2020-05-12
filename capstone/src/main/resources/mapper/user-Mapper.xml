@@ -18,7 +18,14 @@
 	
 		
 	<update id = "setFurn">
-		update members set email = #{route} where id = 0
+		update members set email = #{route} where userID = #{ID}
 	</update>
+	
+	<select id = "getFurn">
+		select email from members
+		<if test = "ID != null">
+			where userId = #{ID};
+		</if>
+	</select>
 
 </mapper>

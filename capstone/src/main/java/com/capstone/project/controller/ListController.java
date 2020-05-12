@@ -31,6 +31,13 @@ public class ListController {
 		}
 		return listCheck;
 	}
+	
+	@RequestMapping(value="/jquery/basket.do",method = RequestMethod.POST)
+	public @ResponseBody List<Lists> basket(Lists lists,HttpSession session, HttpServletRequest httpServletRequest) {
+		List<Lists> basketCheck = listService.getBasketList(httpServletRequest.getParameter("ID"));
+
+		return basketCheck;
+	}
 
 
 }

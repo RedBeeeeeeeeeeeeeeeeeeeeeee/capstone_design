@@ -57,13 +57,15 @@
 #wrap #content #left #list #kategorie #find > ul.Menu {}
 #wrap #content #left #list #kategorie #find > ul.Menu > li { display:inline-block; width:60px;  padding:5px 10px; background: #d1d1d1; border:1px solid #eee; text-align:center; position:relative; }
 #wrap #content #left #list #kategorie #find > ul.Menu > li:hover { background: WHITE; }
-#wrap #content #left #list #kategorie #find > ul.Menu > li ul.subMenu { display:none; position:absolute; top:32px; right:-1px; }
+#wrap #content #left #list #kategorie #find > ul.Menu > li ul.subMenu { display:none; position:absolute; top:32px	; right:-1px; }
 #wrap #content #left #list #kategorie #find > ul.Menu > li:hover ul.subMenu { display:block; }
 #wrap #content #left #list #kategorie #find > ul.Menu > li ul.subMenu > li { display:inline-block; width:60px;  padding:5px 10px; background: WHITE; border:1px solid #eee; text-align:center;}
 #wrap #content #left #list #kategorie #find > ul.Menu > li ul.subMenu > li:hover { background:#d1d1d1; }
 #wrap #content #left #list #kategorie #search { width:10%; height:100%; margin:20px 0 0 20px; float:left; position:relative;}
-
 #wrap #content #left #list #listview {overflow-x:hidden; width:100%	; height:525px;  background: white;}
 
-
+/* bascket */
+#wrap #content #right #basket {width:490px; height: 100%; margin:10px 0 10px 0; float:right;}
+#wrap #content #right #basket #totalprice {width:100%; height: 70px; float:right;}
+#wrap #content #right #basket #basketview {overflow-x:hidden; width:100%; height:525px; background: white; margint-top:50px;}
 

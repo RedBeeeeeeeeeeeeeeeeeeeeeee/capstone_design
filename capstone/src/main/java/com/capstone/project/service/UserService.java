@@ -9,6 +9,9 @@ public interface UserService {
 
 	int userJoin(Members members);
 
-	int setFurn(String route);
+	int setFurn(String ID, String route);
+
+	String getFurn(String ID);
+
 
 }
