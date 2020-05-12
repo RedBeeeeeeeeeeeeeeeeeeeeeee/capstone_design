@@ -24,10 +24,11 @@ public class ListController {
 	public @ResponseBody List<Lists> list(Lists lists,HttpSession session, HttpServletRequest httpServletRequest) {
 		List<Lists> listCheck = listService.getListOne(httpServletRequest.getParameter("type"),
 													   httpServletRequest.getParameter("brand"),
+													   httpServletRequest.getParameter("color"),
 													   httpServletRequest.getParameter("price"));
 		
 		for(int i = 0; i < listCheck.size(); i++) {
-				System.out.println(listCheck.get(i).getNum() +" "+ listCheck.get(i).getFurnName()+" "+listCheck.get(i).getType()+" "+listCheck.get(i).getBrand()+" "+listCheck.get(i).getPrice()+" "+listCheck.get(i).getImgLink()+" "+listCheck.get(i).getDetailLink());
+				System.out.println(listCheck.get(i).getNum() +" "+ listCheck.get(i).getFurnName()+" "+listCheck.get(i).getType()+" "+listCheck.get(i).getBrand()+" "+listCheck.get(i).getPrice()+" "+listCheck.get(i).getColor()+" "+listCheck.get(i).getImgLink()+" "+listCheck.get(i).getDetail());
 		}
 		return listCheck;
 	}

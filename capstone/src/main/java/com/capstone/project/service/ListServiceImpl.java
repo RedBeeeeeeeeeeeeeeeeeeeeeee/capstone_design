@@ -15,8 +15,8 @@ public class ListServiceImpl implements ListService{
    ListDAO listDAO;
    
    @Override
-   public List<Lists> getListOne(String type, String brand, String price) {
-      return listDAO.getListOne( type, brand, price);
+   public List<Lists> getListOne(String type, String brand,  String color, String price) {
+      return listDAO.getListOne( type, brand,color, price);
    }
    
    @Override

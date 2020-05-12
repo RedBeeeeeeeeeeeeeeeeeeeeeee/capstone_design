@@ -11,6 +11,9 @@
 			<if test="brand != 'Brand'">
 				AND brand = #{brand}
 			</if>
+			<if test="color != 'Color'">
+				AND color = #{color}
+			</if>
 			<if test="price != 'Price'">
 				AND price = #{price}
 			</if>
@@ -18,7 +21,7 @@
 	</select>
 	
 	<select id="getBasketList" resultType="lists">
-		SELECT	b.num, f.furnName, f.type, f.brand, f.price, f.imgLink, f.detailLink 
+		SELECT	b.num, f.furnName, f.type, f.brand, f.color, f.price, f.imgLink, f.detail
 		FROM basket b
 		JOIN furnlist f
 		ON b.num = f.num

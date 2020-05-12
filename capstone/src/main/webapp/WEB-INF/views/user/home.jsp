@@ -222,7 +222,7 @@
 				data : {type : type.innerText, brand : brand.innerText, color : color.innerText, price : price.innerText},
 				success : function(check){
 					for(var i = 0 in check){
-						alert(check[i].num+" "+check[i].furnName+" "+check[i].type+" "+check[i].brand+" "+check[i].price+" "+check[i].imgLink+" "+check[i].detailLink);
+						alert(check[i].num+" "+check[i].furnName+" "+check[i].type+" "+check[i].brand+" "+check[i].price+" "+check[i].color+" "+check[i].imgLink+" "+check[i].detail);
 					}
 				}
 			})

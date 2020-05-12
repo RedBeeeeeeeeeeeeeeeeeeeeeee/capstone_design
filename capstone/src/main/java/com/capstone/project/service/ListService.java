@@ -6,7 +6,7 @@ import com.capstone.project.logic.Lists;
 
 public interface ListService {
 
-	List<Lists> getListOne(String type, String brand, String price);
+	List<Lists> getListOne(String type, String brand, String color, String price);
 
 	List<Lists> getBasketList(String ID);
 }
