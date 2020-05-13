@@ -17,7 +17,6 @@ public class UserDAO {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		if(col.equals("userId")) {
 			map.put("userId",common);
-
 		}
 		return sqlSession.selectOne("getUserOne",map);
 	}

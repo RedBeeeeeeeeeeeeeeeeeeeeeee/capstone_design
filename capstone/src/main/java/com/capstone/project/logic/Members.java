@@ -1,71 +1,34 @@
 package com.capstone.project.logic;
 public class Members {
 
-	private int id;
-	private String userId;
-	private String password;
-	private String nickname;
+	private String id;
+	private String pw;
 	private String email;
-	private int authority;
-	private int declaration;
-
-
-	public int getId() {
+	private String room;
+	public String getId() {
 		return id;
 	}
-
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
-
-	public String getUserId() {
-		return userId;
+	public String getPw() {
+		return pw;
 	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setPw(String pw) {
+		this.pw = pw;
 	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getNickname() {
-		return nickname;
-	}
-
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
-	}
-
 	public String getEmail() {
 		return email;
 	}
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	public int getAuthority() {
-		return authority;
+	public String getRoom() {
+		return room;
 	}
-
-	public void setAuthority(int authority) {
-		this.authority = authority;
+	public void setRoom(String room) {
+		this.room = room;
 	}
-
-	public int getDeclaration() {
-		return declaration;
-	}
-
-	public void setDeclaration(int declaration) {
-		this.declaration = declaration;
-	}
-
 
 
 	

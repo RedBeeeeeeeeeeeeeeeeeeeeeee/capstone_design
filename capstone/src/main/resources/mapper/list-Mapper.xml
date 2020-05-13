@@ -3,7 +3,7 @@
 <mapper namespace="mapper.list-Mapper">
 
 	<select id="getListOne" resultType="lists">
-		SELECT * FROM furnlist
+		SELECT * FROM furnitures
 		<where>
 			<if test="type != 'Type'">
 				type = #{type}
@@ -20,12 +20,5 @@
 		</where>
 	</select>
 	
-	<select id="getBasketList" resultType="lists">
-		SELECT	b.num, f.furnName, f.type, f.brand, f.color, f.price, f.imgLink, f.detail
-		FROM basket b
-		JOIN furnlist f
-		ON b.num = f.num
-		WHERE b.ID = #{ID}	
-	</select>
 
 </mapper>

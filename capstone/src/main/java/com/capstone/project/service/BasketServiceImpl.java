@@ -1,9 +1,12 @@
 package com.capstone.project.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capstone.project.dao.BasketDAO;
+import com.capstone.project.logic.Baskets;
 
 @Service
 public class BasketServiceImpl implements BasketService{
@@ -20,7 +23,11 @@ public class BasketServiceImpl implements BasketService{
    public int deleteBasket(String ID, String num) {
       return basketDAO.deleteBasket(ID, num);
    }
-   
+
+   @Override
+   public List<Baskets> getBasketList(String reloadID){
+	   return basketDAO.getBasketList(reloadID);
+   }
    
    
 }

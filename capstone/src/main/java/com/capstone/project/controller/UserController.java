@@ -37,9 +37,9 @@ public class UserController {
 		if(userIdCheck == null) {
 			result = 2;
 		}else {
-			if(httpServletRequest.getParameter("userId").equals(userIdCheck.getUserId())) {
+			if(httpServletRequest.getParameter("userId").equals(userIdCheck.getId())) {
 				//ID OK
-				if(httpServletRequest.getParameter("password").equals(userIdCheck.getPassword())) {
+				if(httpServletRequest.getParameter("password").equals(userIdCheck.getPw())) {
 					//PW OK 
 					session.setAttribute("loginUser", userIdCheck);
 					result = 3;
@@ -56,22 +56,17 @@ public class UserController {
 	}
 
 
-	@RequestMapping(value="/jquery/signUp.do",method = RequestMethod.POST)
+	@RequestMapping(value="/user/jquery/signUp.do",method = RequestMethod.POST)
 	public @ResponseBody String signUp(Members member, HttpServletRequest httpServletRequest) {
 		int result = 0; 
 		String col = null;
 		col = "userId";
 		Members userIdCheck = userService.getUserOne(httpServletRequest.getParameter("userId"),col);
-		if(userIdCheck != null) {
-			result = 2; 
-		}
-		col = "userName";
-		Members userNicknameCheck = userService.getUserOne(httpServletRequest.getParameter("userName"),col);
-		if(userNicknameCheck != null) { result = 3; }	
-		if(result < 2) {
-			member.setUserId(httpServletRequest.getParameter("userId"));
-			member.setPassword(httpServletRequest.getParameter("userPw"));
-			member.setNickname(httpServletRequest.getParameter("userName"));
+		if(userIdCheck != null) result = 2; 
+		else{
+			member.setId(httpServletRequest.getParameter("userId"));
+			member.setPw(httpServletRequest.getParameter("userPw"));
+			member.setEmail(httpServletRequest.getParameter("email"));
 			result = userService.userJoin(member);	
 		}
 		return Integer.toString(result);

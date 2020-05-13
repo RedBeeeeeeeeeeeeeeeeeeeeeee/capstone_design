@@ -19,9 +19,5 @@ public class ListServiceImpl implements ListService{
       return listDAO.getListOne( type, brand,color, price);
    }
    
-   @Override
-   public List<Lists> getBasketList(String ID){
-	   return listDAO.getBasketList(ID);
-   }
    
 }

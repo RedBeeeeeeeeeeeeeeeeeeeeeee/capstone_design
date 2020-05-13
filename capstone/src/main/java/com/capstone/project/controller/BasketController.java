@@ -1,5 +1,7 @@
 package com.capstone.project.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -19,10 +21,10 @@ public class BasketController {
 	BasketService basketService;
 
 	@RequestMapping(value="/jquery/insert.do",method = RequestMethod.POST)
-	public @ResponseBody int insertBasket(Baskets baskets,HttpSession session, HttpServletRequest httpServletRequest) {
+	public @ResponseBody int insertBasket(HttpSession session, HttpServletRequest httpServletRequest) {
 		int insertCheck = 0;
 		try{
-			insertCheck = basketService.insertBasket(httpServletRequest.getParameter("insertID"),"red");
+			insertCheck = basketService.insertBasket(httpServletRequest.getParameter("insertID"),httpServletRequest.getParameter("insertFurn"));
 		}catch(Exception e) {
 			insertCheck = 0;
 		}
@@ -31,8 +33,16 @@ public class BasketController {
 	
 
 	@RequestMapping(value="/jquery/delete.do",method = RequestMethod.POST)
-	public @ResponseBody int deleteBasket(Baskets baskets,HttpSession session, HttpServletRequest httpServletRequest) {
-		int deleteCheck = basketService.deleteBasket(httpServletRequest.getParameter("deleteID"),"red");
+	public @ResponseBody int deleteBasket(HttpSession session, HttpServletRequest httpServletRequest) {
+		int deleteCheck = basketService.deleteBasket(httpServletRequest.getParameter("deleteID"),httpServletRequest.getParameter("deleteFurn"));
 		return deleteCheck;
+	}
+	
+	
+	@RequestMapping(value="/jquery/basket.do",method = RequestMethod.POST)
+	public @ResponseBody List<Baskets> basket(HttpSession session, HttpServletRequest httpServletRequest) {
+		List<Baskets> basketCheck = basketService.getBasketList(httpServletRequest.getParameter("reloadID"));
+
+		return basketCheck;
 	}
 }

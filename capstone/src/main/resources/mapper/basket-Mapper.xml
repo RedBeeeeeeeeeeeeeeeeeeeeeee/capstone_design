@@ -4,13 +4,21 @@
 
 
 	<insert id="insertBasket">
-		insert into basket
-		values (#{insertID},#{num})
+		insert into baskets
+		values (#{insertID},#{num},#{count})
 	</insert>
 
 	<delete id="deleteBasket">
-		delete from basket
-		where  ID = #{deleteID} AND num = #{num}
+		delete from baskets
+		where  id = #{deleteID} AND num = #{num}
 	</delete>
-
+	
+	<select id="getBasketList" resultType="baskets">
+		SELECT	b.id, b.num, b.count, f.name, f.brand, f.price, f.image, f.detail
+		FROM baskets b
+		JOIN furnitures f
+		ON b.num = f.num
+		WHERE b.id = #{reloadID}
+	</select>
+	
 </mapper>

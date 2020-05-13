@@ -20,25 +20,13 @@ public class ListController {
 	@Autowired
 	ListService listService;
 
-	@RequestMapping(value="/jquery/list.do",method = RequestMethod.POST)
-	public @ResponseBody List<Lists> list(Lists lists,HttpSession session, HttpServletRequest httpServletRequest) {
+	@RequestMapping(value="/jquery/furnlist.do",method = RequestMethod.POST)
+	public @ResponseBody List<Lists> list(HttpSession session, HttpServletRequest httpServletRequest) {
 		List<Lists> listCheck = listService.getListOne(httpServletRequest.getParameter("type"),
 													   httpServletRequest.getParameter("brand"),
 													   httpServletRequest.getParameter("color"),
 													   httpServletRequest.getParameter("price"));
 		
-		for(int i = 0; i < listCheck.size(); i++) {
-				System.out.println(listCheck.get(i).getNum() +" "+ listCheck.get(i).getFurnName()+" "+listCheck.get(i).getType()+" "+listCheck.get(i).getBrand()+" "+listCheck.get(i).getPrice()+" "+listCheck.get(i).getColor()+" "+listCheck.get(i).getImgLink()+" "+listCheck.get(i).getDetail());
-		}
 		return listCheck;
 	}
-	
-	@RequestMapping(value="/jquery/basket.do",method = RequestMethod.POST)
-	public @ResponseBody List<Lists> basket(Lists lists,HttpSession session, HttpServletRequest httpServletRequest) {
-		List<Lists> basketCheck = listService.getBasketList(httpServletRequest.getParameter("ID"));
-
-		return basketCheck;
-	}
-
-
 }

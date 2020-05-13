@@ -23,11 +23,4 @@ public class ListDAO {
 		return sqlSession.selectList("getListOne",map);
 	}
 
-	public List<Lists> getBasketList(String ID) {
-		HashMap<String,Object> map = new HashMap<String,Object>();
-		map.put("ID",ID);
-		return sqlSession.selectList("getBasketList",map);
-	}
-
-	
 }

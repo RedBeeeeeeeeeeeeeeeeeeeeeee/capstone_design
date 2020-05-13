@@ -39,9 +39,9 @@
 				</c:when>
 				<c:otherwise>
 					<div id="signout">
-						<div id="nickname">
-							<p>${sessionScope.loginUser.nickname }</p>
-						</div>
+							<div id="nickname">
+                             <p> ${sessionScope.loginUser.id } </p> 
+                          </div>
 						<div id="logout">
 							<button type="button" class="far fa-user-circle"
 								id="signOutButton" onclick="logoutCall()"
@@ -121,29 +121,6 @@
 					</div>
 
 					<div id="listview">
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-						<br><br>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-						<br><br>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-						<br><br>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-						<br><br>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-						<br><br>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-						<br><br>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-						<br><br>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-						<br><br>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-						<br><br>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-						<br><br>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-						<br><br>
-						
 					</div>
 
 				</div>
@@ -214,20 +191,86 @@
 					+ "<ul class='subMenu'>	<li id='Price' onclick='findPrice(this)'>Price</li><li id='가격1' onclick='findPrice(this)'>가격1</li>	<li id='가격2' onclick='findPrice(this)'>가격2</li>	<li id='가격3' onclick='findPrice(this)'>가격3</li>	<li id='가격4' onclick='findPrice(this)'>가격4</li>	<li id='가격5' onclick='findPrice(this)'>가격5</li>	</ul></li>"
 		}
 		
+		function listContainerCreate(list){
+			var tc = new Array();
+			var html = '';
+			for(var i = 0 in list){   
+				tc.push({num : list[i].num, name : list[i].name, brand : list[i].brand, type : list[i].type, price : list[i].price, img : list[i].image, link : list[i].detail, modeling : list[i].modeling }); 
+			}
+			if(tc.length == 0){
+				$("#listview").empty();
+			}else{
+				for(key in tc){
+					html += '<table border = "1" width="100%">';
+				    html += '<tr>';
+				    html += '<td rowspan="4" width="20%"><img src="' + tc[key].image + '" height="100"/></td>';
+				    html += '<td colspan="3">' + tc[key].brand + '</td>';
+				    html += '</tr>';
+				    html += '<tr>';
+				    html += '<td colspan="3">' + tc[key].name + '</td>';
+				    html += '</tr>';
+				    html += '<tr>';
+				    html += '<td colspan = "3">' + tc[key].price + '</td>';
+				    html += '</tr>';
+				    html += '<tr>';
+				    html += "<td width='20%'><button onclick ='insertbasket("+tc[key].num+")' style=' width:100%; align:center'>장바구니</button></td>";
+					html += "<td width='20%''><button style=' width:100%; align:center'>가구 추가</button></td>"
+				    html += '<td width="20%"><button type="button" onclick="window.open(\'' + tc[key].link + '\')" target="_blank" style=" width:100%; align:center">구매 링크</button></td>';
+					html += '</tr>';
+					html += '</table>';	
+				}
+				$("#listview").empty()
+				$("#listview").append(html);	
+			
+			}
+		}
+		function basketContainerCreate(list){
+			var tc = new Array();
+			var html = '';
+			for(var i = 0 in list){   
+				tc.push({num : list[i].num, name : list[i].name, brand : list[i].brand, price : list[i].price, img : list[i].image, link : list[i].detail, count : list[i].count}); 
+			}
+			if(tc.length == 0){
+				$("#basketview").empty();
+			}else{
+				for(key in tc){
+					html += '<table border = "1" width="100%">';
+				    html += '<tr>';
+				    html += '<td rowspan="4" width="20%"><img src="' + tc[key].image + '" height="100"/></td>';
+				    html += '<td colspan="3">' + tc[key].brand + '</td>';
+				    html += '</tr>';
+				    html += '<tr>';
+				    html += '<td colspan="3">' + tc[key].name + '</td>';
+				    html += '</tr>';
+				    html += '<tr>';
+				    html += '<td colspan = "3">' + tc[key].price + '</td>';
+				    html += '</tr>';
+				    html += '<tr>';
+				    html += "<td width='20%'><button onclick = 'minus()' style = 'float:left;'>-</button><label style>"+tc[key].count+"</label><button onclick = 'plus()' style = 'float:right;'>+</button></td>";
+				    html += "<td width='20%''><button onclick = 'deletebasket("+tc[key].num+")' style=' width:100%; align:center'>장바구니 삭제</button></td>"
+				    html += '<td width="20%"><button type="button" onclick="window.open(\'' + tc[key].link + '\')" target="_blank" style=" width:100%; align:center">구매 링크</button></td>';	
+					html += '</tr>';
+					html += '</table>';
+				}
+				$("#basketview").empty()
+				$("#basketview").append(html);
+			}		
+		}
+			 
+
+		
 		// 검색 조건에 맞는 가구 보여주기
-		function showList(){
+		 function showList(){
 			$.ajax({
-				url : "/jquery/list.do",
+				url : "/jquery/furnlist.do",
 				type : 'POST',
 				data : {type : type.innerText, brand : brand.innerText, color : color.innerText, price : price.innerText},
 				success : function(check){
-					for(var i = 0 in check){
-						alert(check[i].num+" "+check[i].furnName+" "+check[i].type+" "+check[i].brand+" "+check[i].price+" "+check[i].color+" "+check[i].imgLink+" "+check[i].detail);
-					}
+					listContainerCreate(check);
 				}
 			})
-			$("#left #list #listview").load("/user/home #left #list #listview");		
 		}
+		
 		
 		function logoutCall() {
 			$.ajax({
@@ -245,7 +288,7 @@
 		
 		//unity의 방 정보 저장
 		function test(arg){
-			var save = "${sessionScope.loginUser.userId}";
+			var save = "${sessionScope.loginUser.id}";
 			if(save != ""){
 				$.ajax({
 		    		url : "/jquery/save.do",
@@ -264,9 +307,15 @@
 			}
 		}
 		
+		// 가구 저장
+    	function clicked(){
+        	unityInstance.SendMessage("UIEvent",'CreateButtonClick');// 파라메터 무엇???
+     	}
+		
+		
 		// 유니티에다가 방 정보 load
 		function load(){
-			var load = "${sessionScope.loginUser.userId}";
+			var load = "${sessionScope.loginUser.id}";
 			if(load != ""){
 				$.ajax({
 					url : "/jquery/load.do",
@@ -281,23 +330,20 @@
 			}
 		}
 		
-		//로그인하고 돌아왔을 때 장바구니 업데이트를 위함
-		window.onload = basket();
+		//로그인하고 돌아왔을 때 업데이트를 위함
+		window.onload = reloadbasket();
+		window.onload = showList();
 		
 		// 장바구니 리로드 메소드
-		function basket(){
-			var basket = "${sessionScope.loginUser.userId}";
-			if(basket != ""){
+		function reloadbasket(){
+			var reloadbasket = "${sessionScope.loginUser.id}";
+			if(reloadbasket != ""){
 				$.ajax({
 					url : "/jquery/basket.do",
 					type : 'POST',
-					data : {ID : basket},
+					data : {reloadID : reloadbasket},
 					success : function(check){
-						for(var i = 0 in check){
-							alert(check[i].num+" "+check[i].furnName+" "+check[i].type+" "+check[i].brand+" "+check[i].price+" "+check[i].imgLink+" "+check[i].detailLink);
-						}
-						
-						// 포문 돌려서 만들어야됨
+						basketContainerCreate(check);
 					}
 				})
 			}else{
@@ -305,18 +351,18 @@
 		}
 		
 		// 장바구니 추가
-		function insertbasket(){
-			var insert = "${sessionScope.loginUser.userId}";
-			if(insert != ""){
+		function insertbasket(furnNum){
+			var insertbasket = "${sessionScope.loginUser.id}";
+			if(insertbasket != ""){
 				$.ajax({
 					url : "/jquery/insert.do",
 					type : 'POST',
-					data : {insertID : insert},
+					data : {insertID : insertbasket, insertFurn : furnNum},
 					success : function(check){
 						if(check == 0) alert("이미 추가되어 있는 가구");
 						else {
-							alert("장바구니 담기 성공")
-							//basket() <- 이것도 실행해서 장바구니 reload되게 해야됨
+							alert("장바구니 담기")
+							reloadbasket();
 						}
 					}
 				})
@@ -325,20 +371,32 @@
 		}
 		
 		// 장바구니 삭제
-		function deletebasket(){
-			var deletebasket = "${sessionScope.loginUser.userId}";
+		function deletebasket(furnNum){
+			var deletebasket = "${sessionScope.loginUser.id}";
 			if( deletebasket != ""){
 				$.ajax({
 					url : "/jquery/delete.do",
 					type : 'POST',
-					data : {deleteID : deletebasket},
+					data : {deleteID : deletebasket, deleteFurn : furnNum},
 					success : function(check){
-						//basket() <- 이것도 실행해서 장바구니 reload되게 해야됨
+						if(check == 1) {
+							alert("장바구니 삭제")
+							reloadbasket();
+						}
 					}
 				})
 			}else{
 			}
 		}		
+		
+		function minus(){
+				
+		}
+		
+		function plus(){
+			
+		}
+		
 	</script>
 
 </body>

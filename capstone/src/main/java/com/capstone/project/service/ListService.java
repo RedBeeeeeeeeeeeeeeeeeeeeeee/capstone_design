@@ -8,5 +8,4 @@ public interface ListService {
 
 	List<Lists> getListOne(String type, String brand, String color, String price);
 
-	List<Lists> getBasketList(String ID);
 }

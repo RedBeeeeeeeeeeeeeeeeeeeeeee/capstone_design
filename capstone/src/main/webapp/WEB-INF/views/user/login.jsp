@@ -254,9 +254,6 @@ input {
                         <input type="password" id="signup_passwordCheck" class="signUpInput" name="passwordCheck" maxlength="20" autocomplete="off">
                      </div>
                       
-                       <div class="fieldlabel"><label for="username">*닉네임</label></div>
-                       <div class="formfield"><input type="text" id="signup_username" class="signUpInput" name="username" maxlength="20" value=""></div>
-               
                        <div class="fieldlabel"><label for="email">*이메일</label></div>
                        <div class="formfield"><input type="text" id="signup_email" class="emailInput" name="email" size="20" maxlength="20" 
                             value="" autocomplete="off"><span>@</span>
@@ -331,7 +328,6 @@ function signUpValidation(){
    var userId = $("#signup_userId").val();
    var userPw = $("#signup_password").val();
    var userPwCheck = $("#signup_passwordCheck").val();
-   var userName = $("#signup_username").val();
    var email = $("#signup_email").val();
    
    if(!userId){
@@ -345,46 +341,31 @@ function signUpValidation(){
       $("#signup_passwordCheck").focus();
    }else if(userPw != userPwCheck){
       alert("비밀번호가 맞지 않습니다.");
-      $("#signup_userPwCheck").focus();      
-   }else if(!userName){
-      alert("이름 입력은 필수입니다.");
-      $("#signup_username").focus();
+      $("#signup_userPwCheck").focus();
    }else {
-      signUp(userId, userPw, userName);
+      signUp(userId, userPw, email);
    }
    
 }
 
 
-function signUp(id, pw, name){
-
+function signUp(id, pw, email){
    $.ajax({
-      url : "jquery/signUp.do",
+      url : "/jquery/signUp.do",
       type:'POST',
-      data :  { userId : id,
-         userPw : pw,
-         userName : name
-      },
+      data :  { userId : id, userPw : pw, email : email},
       success:function(data){
          if(data==1){
-            alert("회원가입이 완료됐습니다.^^");
+            alert("회원가입이 완료됐습니다.");
             $('#signUpModal').modal('hide');
          }else if(data==2){
             alert("이미 존재하는 아이디입니다.");
             return false;
-         }else if(data==3){
-            alert("이미 존재하는 이름입니다.");
-            return false;
-         } else {
-            alert("data==0.");
-         }
+         } 
       },
       error:function(e){
-          alert(e.responseText);          },
-        complete : function(data) {
-           //alert("complete : " + data);
-        }
-      
+          alert(e.responseText);     
+      }      
    })
 }
 

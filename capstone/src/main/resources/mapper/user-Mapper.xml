@@ -5,26 +5,26 @@
 	<select id="getUserOne" resultType="members">
 		SELECT * FROM members
 		<if test="userId != null">
-			where userId = #{userId};
+			where id = #{userId};
 		</if>
 	</select>
 
 	<insert id="userJoin">
 		insert into members
-		(id,userId,password,nickname,email,authority,last_login,create_time,update_time)
+		(id,pw,email)
 		values
-		(#{id},#{userId},#{password},#{nickname},#{email},1,#{last_login},now(),#{update_time})
+		(#{id},#{pw},#{email})
 	</insert>
 	
 		
 	<update id = "setFurn">
-		update members set email = #{route} where userID = #{ID}
+		update members set email = #{route} where id = #{ID}
 	</update>
 	
 	<select id = "getFurn">
 		select email from members
 		<if test = "ID != null">
-			where userId = #{ID};
+			where id = #{ID};
 		</if>
 	</select>
 
