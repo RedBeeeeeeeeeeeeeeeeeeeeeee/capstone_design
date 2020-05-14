@@ -159,6 +159,7 @@
 	</div>
 
 	<script type="text/javascript">
+	
     	function clicked(){
         	unityInstance.SendMessage("UIEvent",'CreateButtonClick');
      	}
@@ -194,7 +195,7 @@
 		function listContainerCreate(list, num){
 			var tc = new Array();
 			var html = '';
-			for(var i = 0 in list){   
+			for(var i = 0 in list){
 				tc.push({num : list[i].num, name : list[i].name, brand : list[i].brand, type : list[i].type, price : list[i].price, image : list[i].image, detail : list[i].detail, modeling : list[i].modeling }); 
 			}
 			if(tc.length == 0){
@@ -213,9 +214,9 @@
 				    html += '<td colspan = "3">' + tc[key].price + '원</td>';
 				    html += '</tr>';
 				    html += '<tr>';
-				    html += "<td width='20%'><button onclick ='insertbasket("+tc[key].num+")' style=' width:100%; align:center'>장바구니</button></td>";
-					html += "<td width='20%''><button style=' width:100%; align:center'>가구 추가</button></td>"
-				    html += '<td width="20%"><button type="button" onclick="window.open(\'' + tc[key].detail + '\')" target="_blank" style=" width:100%; align:center">구매 링크</button></td>';
+				    html += "<td width='20%'><button onclick = 'insertbasket("+tc[key].num+")' style='width:100%; align:center'>장바구니</button></td>";
+				    html += "<td width='20%'><button onclick = 'add("+tc[key].name+")' style='width:100%; align:center'>가구추가</button></td>";
+					html += '<td width="20%"><button onclick = "window.open(\'' + tc[key].detail + '\')" target="_blank" style=" width:100%; align:center">구매 링크</button></td>';
 					html += '</tr>';
 					html += '</table>';	
 				}
@@ -236,7 +237,7 @@
 				$("#totalprice").empty().append("<label style = 'float:right; font-size:25px; margin-right:30px;'>총 금액 :   "+totalprice+" 원</label>");
 				$("#basketview").empty();
 			}else{
-				for(var key = 0 in tc){
+				for(key in tc){
 					html += '<table border = "1" width="100%">';
 				    html += '<tr>';
 				    html += '<td rowspan="4" width="20%"><img src="' + tc[key].image + '" height="100"/></td>';
@@ -250,8 +251,8 @@
 				    html += '</tr>';
 				    html += '<tr>';
 				    html += "<td width='20%'><button onclick = 'count("+tc[key].num+","+tc[key].count+",1)' style = 'float:left;'>-</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label>"+tc[key].count+"</label><button onclick = 'count("+tc[key].num+","+tc[key].count+",2)' style = 'float:right;'>+</button></td>";
-				    html += "<td width='20%''><button onclick = 'deletebasket("+tc[key].num+")' style=' width:100%; align:center'>장바구니 삭제</button></td>"
-				    html += '<td width="20%"><button type="button" onclick="window.open(\'' + tc[key].detail + '\')" target="_blank" style=" width:100%; align:center">구매 링크</button></td>';	
+				    html += "<td width='20%'><button onclick = 'deletebasket("+tc[key].num+")' style=' width:100%; align:center'>장바구니 삭제</button></td>";
+				    html += '<td width="20%"><button onclick="window.open(\'' + tc[key].detail + '\')" target="_blank" style=" width:100%; align:center">구매 링크</button></td>';	
 					html += '</tr>';
 					html += '</table>';
 				}
@@ -266,6 +267,7 @@
 				type : 'POST',
 				data : {type : type.innerText, brand : brand.innerText, color : color.innerText, price : price.innerText},
 				success : function(check){
+					
 					listContainerCreate(check);
 				}
 			})
@@ -365,10 +367,14 @@
 			})
 		}
 		
+		
+		
+		
+		function add(addinfo){
+			alert(addinfo);
+		}
 
-/*================================================================ Unity 동작 함수들! 나중에 연동시 손 봐야 함
-
-		function test(arg){
+		function test(arg){ 
 			var save = "${sessionScope.loginUser.id}";
 			if(save != ""){
 				$.ajax({
@@ -387,11 +393,7 @@
 				alert("로그인해라");
 			}
 		}
-		
-    	function clicked(){
-        	unityInstance.SendMessage("UIEvent",'CreateButtonClick');// 파라메터 무엇???
-     	}
-		
+
 		function load(){
 			var load = "${sessionScope.loginUser.id}";
 			if(load != ""){
@@ -400,15 +402,14 @@
 					type : 'POST',
 					data : {ID : load},
 					success : function(check){
-						alert(check);
+						alert(check); // room 정보
 					}
 				})
 			}else{
 				alert("로그인해라");
 			}
 		}
-*/
-		
+
 	</script>
 
 </body>

@@ -87,8 +87,7 @@ public class UserController {
 		return mav;
 	}
 
-/*================================================================ Unity 동작 함수들! 나중에 연동시 손 봐야 함
-
+	
 	@RequestMapping(value="/jquery/save.do",method = RequestMethod.POST)
 	public @ResponseBody int save(Members member,HttpSession session, HttpServletRequest httpServletRequest) {
 		int save  = userService.setFurn(httpServletRequest.getParameter("ID"),httpServletRequest.getParameter("route"));
@@ -102,5 +101,4 @@ public class UserController {
 
 		return save;
 	}
-*/
 }

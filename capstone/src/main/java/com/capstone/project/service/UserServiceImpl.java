@@ -22,7 +22,6 @@ public class UserServiceImpl implements UserService {
 		return userDAO.userJoin(members);
 	}
 
-/*================================================================ Unity 동작 함수들! 나중에 연동시 손 봐야 함
 
 	@Override
 	public int setFurn(String ID, String route) {
@@ -33,5 +32,4 @@ public class UserServiceImpl implements UserService {
 	public String getFurn(String ID) {
 		return userDAO.getFurn(ID);
 	}
-*/
 }

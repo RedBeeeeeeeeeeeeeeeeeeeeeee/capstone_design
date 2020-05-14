@@ -25,8 +25,9 @@ public class UserDAO {
 		return sqlSession.insert("userJoin",members);
 	}
 
-/*================================================================ Unity 동작 함수들! 나중에 연동시 손 봐야 함
-
+	
+	
+	
 	public int setFurn(String ID, String route) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("ID", ID);
@@ -39,5 +40,4 @@ public class UserDAO {
 		map.put("ID", ID);
 		return sqlSession.selectOne("getFurn", map);
 	}
-*/
 }

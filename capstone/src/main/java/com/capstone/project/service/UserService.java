@@ -9,11 +9,8 @@ public interface UserService {
 
 	int userJoin(Members members);
 
-/*================================================================ Unity 동작 함수들! 나중에 연동시 손 봐야 함
-
+	
 	int setFurn(String ID, String route);
-
 	String getFurn(String ID);
-*/
 
 }
