@@ -20,7 +20,7 @@ public class ListController {
 	@Autowired
 	ListService listService;
 
-	@RequestMapping(value="/jquery/furnlist.do",method = RequestMethod.POST)
+	@RequestMapping(value="/jquery/list.do",method = RequestMethod.POST)
 	public @ResponseBody List<Lists> list(HttpSession session, HttpServletRequest httpServletRequest) {
 		List<Lists> listCheck = listService.getListOne(httpServletRequest.getParameter("type"),
 													   httpServletRequest.getParameter("brand"),

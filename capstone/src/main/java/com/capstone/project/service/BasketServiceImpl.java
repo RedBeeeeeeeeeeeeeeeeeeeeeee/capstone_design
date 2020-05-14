@@ -29,5 +29,10 @@ public class BasketServiceImpl implements BasketService{
 	   return basketDAO.getBasketList(reloadID);
    }
    
+   @Override
+   public int countBasket(String countID, String num, String count) {
+	   return basketDAO.countBasket(countID, num, count);
+   }
+   
    
 }

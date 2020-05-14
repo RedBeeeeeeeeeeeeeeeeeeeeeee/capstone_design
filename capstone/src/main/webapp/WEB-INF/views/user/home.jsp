@@ -136,7 +136,7 @@
 				</i>
 				<div id = "basket">
 					<div id = "totalprice">
-						<button id = "total">total</button>
+					
 					</div>
 					<div id = "basketview">
 						
@@ -191,11 +191,11 @@
 					+ "<ul class='subMenu'>	<li id='Price' onclick='findPrice(this)'>Price</li><li id='가격1' onclick='findPrice(this)'>가격1</li>	<li id='가격2' onclick='findPrice(this)'>가격2</li>	<li id='가격3' onclick='findPrice(this)'>가격3</li>	<li id='가격4' onclick='findPrice(this)'>가격4</li>	<li id='가격5' onclick='findPrice(this)'>가격5</li>	</ul></li>"
 		}
 		
-		function listContainerCreate(list){
+		function listContainerCreate(list, num){
 			var tc = new Array();
 			var html = '';
 			for(var i = 0 in list){   
-				tc.push({num : list[i].num, name : list[i].name, brand : list[i].brand, type : list[i].type, price : list[i].price, img : list[i].image, link : list[i].detail, modeling : list[i].modeling }); 
+				tc.push({num : list[i].num, name : list[i].name, brand : list[i].brand, type : list[i].type, price : list[i].price, image : list[i].image, detail : list[i].detail, modeling : list[i].modeling }); 
 			}
 			if(tc.length == 0){
 				$("#listview").empty();
@@ -210,12 +210,12 @@
 				    html += '<td colspan="3">' + tc[key].name + '</td>';
 				    html += '</tr>';
 				    html += '<tr>';
-				    html += '<td colspan = "3">' + tc[key].price + '</td>';
+				    html += '<td colspan = "3">' + tc[key].price + '원</td>';
 				    html += '</tr>';
 				    html += '<tr>';
 				    html += "<td width='20%'><button onclick ='insertbasket("+tc[key].num+")' style=' width:100%; align:center'>장바구니</button></td>";
 					html += "<td width='20%''><button style=' width:100%; align:center'>가구 추가</button></td>"
-				    html += '<td width="20%"><button type="button" onclick="window.open(\'' + tc[key].link + '\')" target="_blank" style=" width:100%; align:center">구매 링크</button></td>';
+				    html += '<td width="20%"><button type="button" onclick="window.open(\'' + tc[key].detail + '\')" target="_blank" style=" width:100%; align:center">구매 링크</button></td>';
 					html += '</tr>';
 					html += '</table>';	
 				}
@@ -227,13 +227,16 @@
 		function basketContainerCreate(list){
 			var tc = new Array();
 			var html = '';
+			var totalprice = 0;
 			for(var i = 0 in list){   
-				tc.push({num : list[i].num, name : list[i].name, brand : list[i].brand, price : list[i].price, img : list[i].image, link : list[i].detail, count : list[i].count}); 
+				tc.push({id : list[i].id, num : list[i].num, name : list[i].name, brand : list[i].brand, price : list[i].price, image : list[i].image, detail : list[i].detail, count : list[i].count}); 
+				totalprice += list[i].price * list[i].count;
 			}
 			if(tc.length == 0){
+				$("#totalprice").empty().append("<label style = 'float:right; font-size:25px; margin-right:30px;'>총 금액 :   "+totalprice+" 원</label>");
 				$("#basketview").empty();
 			}else{
-				for(key in tc){
+				for(var key = 0 in tc){
 					html += '<table border = "1" width="100%">';
 				    html += '<tr>';
 				    html += '<td rowspan="4" width="20%"><img src="' + tc[key].image + '" height="100"/></td>';
@@ -243,26 +246,23 @@
 				    html += '<td colspan="3">' + tc[key].name + '</td>';
 				    html += '</tr>';
 				    html += '<tr>';
-				    html += '<td colspan = "3">' + tc[key].price + '</td>';
+				    html += '<td colspan = "3">' + tc[key].price + '원</td>';
 				    html += '</tr>';
 				    html += '<tr>';
-				    html += "<td width='20%'><button onclick = 'minus()' style = 'float:left;'>-</button><label style>"+tc[key].count+"</label><button onclick = 'plus()' style = 'float:right;'>+</button></td>";
+				    html += "<td width='20%'><button onclick = 'count("+tc[key].num+","+tc[key].count+",1)' style = 'float:left;'>-</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label>"+tc[key].count+"</label><button onclick = 'count("+tc[key].num+","+tc[key].count+",2)' style = 'float:right;'>+</button></td>";
 				    html += "<td width='20%''><button onclick = 'deletebasket("+tc[key].num+")' style=' width:100%; align:center'>장바구니 삭제</button></td>"
-				    html += '<td width="20%"><button type="button" onclick="window.open(\'' + tc[key].link + '\')" target="_blank" style=" width:100%; align:center">구매 링크</button></td>';	
+				    html += '<td width="20%"><button type="button" onclick="window.open(\'' + tc[key].detail + '\')" target="_blank" style=" width:100%; align:center">구매 링크</button></td>';	
 					html += '</tr>';
 					html += '</table>';
 				}
-				$("#basketview").empty()
-				$("#basketview").append(html);
+				$("#basketview").empty().append(html);;
+				$("#totalprice").empty().append("<label style = 'float:right; font-size:25px; margin-right:30px;'>총 금액 :   "+totalprice+" 원</label>");
 			}		
 		}
 			 
-
-		
-		// 검색 조건에 맞는 가구 보여주기
-		 function showList(){
+		function showList(){
 			$.ajax({
-				url : "/jquery/furnlist.do",
+				url : "/jquery/list.do",
 				type : 'POST',
 				data : {type : type.innerText, brand : brand.innerText, color : color.innerText, price : price.innerText},
 				success : function(check){
@@ -285,8 +285,89 @@
 				}
 			})
 		}
+
 		
-		//unity의 방 정보 저장
+		window.onload = reloadbasket();
+		window.onload = showList();
+		
+		function reloadbasket(){
+			var reloadbasket = "${sessionScope.loginUser.id}";
+			if(reloadbasket != ""){
+				$.ajax({
+					url : "/jquery/basket.do",
+					type : 'POST',
+					data : {reloadID : reloadbasket},
+					success : function(check){
+						basketContainerCreate(check);
+					}
+				})
+			}else{
+			}
+		}
+		
+		function insertbasket(furnNum){
+			var insertbasket = "${sessionScope.loginUser.id}";
+			if(insertbasket != ""){
+				$.ajax({
+					url : "/jquery/insert.do",
+					type : 'POST',
+					data : {insertID : insertbasket, insertFurn : furnNum},
+					success : function(check){
+						if(check == 0) alert("이미 추가되어 있는 가구");
+						else {
+							alert("장바구니 담기")
+							reloadbasket();
+						}
+					}
+				})
+			}else{
+			}
+		}
+		
+		function deletebasket(furnNum){
+			var deletebasket = "${sessionScope.loginUser.id}";
+			if( deletebasket != ""){
+				$.ajax({
+					url : "/jquery/delete.do",
+					type : 'POST',
+					data : {deleteID : deletebasket, deleteFurn : furnNum},
+					success : function(check){
+						if(check == 1) {
+							reloadbasket();
+						}
+					}
+				})
+			}else{
+			}
+		}		
+		
+		function count(num, count, type){
+			var changebasket = "${sessionScope.loginUser.id}";
+			var check
+			if(type ==1){
+				if(count == 1){
+					deletebasket(num);
+				}else{
+					check = count - 1;
+				}
+			}else{
+				check = count +1;
+			}
+			$.ajax({
+				url : "/jquery/count.do",
+				type : 'POST',
+				data : {changeID : changebasket, changeNum: num, count : check},
+				success : function(check){
+					if(check == 1) {
+						reloadbasket();
+					}
+				}
+			})
+		}
+		
+
+/*================================================================ Unity 동작 함수들! 나중에 연동시 손 봐야 함
+
 		function test(arg){
 			var save = "${sessionScope.loginUser.id}";
 			if(save != ""){
@@ -307,13 +388,10 @@
 			}
 		}
 		
-		// 가구 저장
     	function clicked(){
         	unityInstance.SendMessage("UIEvent",'CreateButtonClick');// 파라메터 무엇???
      	}
 		
-		
-		// 유니티에다가 방 정보 load
 		function load(){
 			var load = "${sessionScope.loginUser.id}";
 			if(load != ""){
@@ -329,73 +407,7 @@
 				alert("로그인해라");
 			}
 		}
-		
-		//로그인하고 돌아왔을 때 업데이트를 위함
-		window.onload = reloadbasket();
-		window.onload = showList();
-		
-		// 장바구니 리로드 메소드
-		function reloadbasket(){
-			var reloadbasket = "${sessionScope.loginUser.id}";
-			if(reloadbasket != ""){
-				$.ajax({
-					url : "/jquery/basket.do",
-					type : 'POST',
-					data : {reloadID : reloadbasket},
-					success : function(check){
-						basketContainerCreate(check);
-					}
-				})
-			}else{
-			}
-		}
-		
-		// 장바구니 추가
-		function insertbasket(furnNum){
-			var insertbasket = "${sessionScope.loginUser.id}";
-			if(insertbasket != ""){
-				$.ajax({
-					url : "/jquery/insert.do",
-					type : 'POST',
-					data : {insertID : insertbasket, insertFurn : furnNum},
-					success : function(check){
-						if(check == 0) alert("이미 추가되어 있는 가구");
-						else {
-							alert("장바구니 담기")
-							reloadbasket();
-						}
-					}
-				})
-			}else{
-			}
-		}
-		
-		// 장바구니 삭제
-		function deletebasket(furnNum){
-			var deletebasket = "${sessionScope.loginUser.id}";
-			if( deletebasket != ""){
-				$.ajax({
-					url : "/jquery/delete.do",
-					type : 'POST',
-					data : {deleteID : deletebasket, deleteFurn : furnNum},
-					success : function(check){
-						if(check == 1) {
-							alert("장바구니 삭제")
-							reloadbasket();
-						}
-					}
-				})
-			}else{
-			}
-		}		
-		
-		function minus(){
-				
-		}
-		
-		function plus(){
-			
-		}
+*/
 		
 	</script>
 

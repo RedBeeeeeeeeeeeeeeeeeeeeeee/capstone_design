@@ -35,5 +35,13 @@ public class BasketDAO {
 		map.put("reloadID",reloadID);
 		return sqlSession.selectList("getBasketList",map);
 	}
+
+	public int countBasket(String countID, String num, String count) {
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		map.put("countID", countID);
+		map.put("num", num);	
+		map.put("count", count);	
+		return sqlSession.update("countBasket", map);
+	}
 	
 }

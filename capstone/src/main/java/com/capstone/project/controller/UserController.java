@@ -1,7 +1,5 @@
 package com.capstone.project.controller;
 
-
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -21,14 +19,14 @@ public class UserController {
 	@Autowired
 	UserService userService;
 
-	@RequestMapping("/jquery/logout.do")
+	@RequestMapping(value = "/jquery/logout.do",method = RequestMethod.POST)
 	public @ResponseBody String logout(HttpServletRequest httpServletRequest) {
 		HttpSession session = httpServletRequest.getSession();
 		session.invalidate();
 		return "1";
 	}
 
-	@RequestMapping(value="/user/jquery/login.do",method = RequestMethod.POST)
+	@RequestMapping(value="/jquery/login.do",method = RequestMethod.POST)
 	public @ResponseBody String login(Members members,HttpSession session, HttpServletRequest httpServletRequest) {
 		int result = 0; 
 		String col = null;
@@ -89,6 +87,7 @@ public class UserController {
 		return mav;
 	}
 
+/*================================================================ Unity 동작 함수들! 나중에 연동시 손 봐야 함
 
 	@RequestMapping(value="/jquery/save.do",method = RequestMethod.POST)
 	public @ResponseBody int save(Members member,HttpSession session, HttpServletRequest httpServletRequest) {
@@ -103,5 +102,5 @@ public class UserController {
 
 		return save;
 	}
-
+*/
 }

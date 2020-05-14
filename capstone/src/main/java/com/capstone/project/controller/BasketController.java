@@ -42,7 +42,13 @@ public class BasketController {
 	@RequestMapping(value="/jquery/basket.do",method = RequestMethod.POST)
 	public @ResponseBody List<Baskets> basket(HttpSession session, HttpServletRequest httpServletRequest) {
 		List<Baskets> basketCheck = basketService.getBasketList(httpServletRequest.getParameter("reloadID"));
-
 		return basketCheck;
+	}
+	
+
+	@RequestMapping(value="/jquery/count.do",method = RequestMethod.POST)
+	public @ResponseBody int countBasket(HttpSession session, HttpServletRequest httpServletRequest) {
+		int countCheck = basketService.countBasket(httpServletRequest.getParameter("changeID"),httpServletRequest.getParameter("changeNum"),httpServletRequest.getParameter("count"));
+		return countCheck;
 	}
 }

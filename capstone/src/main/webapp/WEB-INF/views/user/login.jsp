@@ -298,7 +298,7 @@ function loginValidation(){
 function login(userid,userpw){
 
    $.ajax({
-      url : "jquery/login.do",
+      url : "/jquery/login.do",
       type : 'POST',
       data : { userId : userid, 
             password : userpw   
@@ -351,7 +351,7 @@ function signUpValidation(){
 
 function signUp(id, pw, email){
    $.ajax({
-      url : "/jquery/signUp.do",
+      url : "/user/jquery/signUp.do",
       type:'POST',
       data :  { userId : id, userPw : pw, email : email},
       success:function(data){

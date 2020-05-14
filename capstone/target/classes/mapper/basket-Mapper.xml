@@ -21,4 +21,8 @@
 		WHERE b.id = #{reloadID}
 	</select>
 	
+	<update id = "countBasket" >
+		update baskets set count = #{count} where id = #{countID} AND num = #{num}
+	</update>
+	
 </mapper>

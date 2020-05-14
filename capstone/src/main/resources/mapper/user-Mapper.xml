@@ -16,9 +16,10 @@
 		(#{id},#{pw},#{email})
 	</insert>
 	
-		
+<!--================================================================ Unity 동작 함수들! 나중에 연동시 손 봐야 함
+
 	<update id = "setFurn">
-		update members set email = #{route} where id = #{ID}
+		update members set room = #{route} where id = #{ID}
 	</update>
 	
 	<select id = "getFurn">
@@ -27,5 +28,6 @@
 			where id = #{ID};
 		</if>
 	</select>
-
+ -->
+ 
 </mapper>
