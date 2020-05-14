@@ -9,8 +9,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 
-<link rel="shortcut icon"
-	href="<c:url value="/resources/favicon.ico" />">
+<link rel="shortcut icon" href="#">
 <link rel="stylesheet" href="<c:url value="/resources/style.css" />">
 <script src="<c:url value="/resources/UnityLoader.js" />"></script>
 <script src="https://kit.fontawesome.com/c176709a0d.js"
@@ -192,7 +191,7 @@
 					+ "<ul class='subMenu'>	<li id='Price' onclick='findPrice(this)'>Price</li><li id='가격1' onclick='findPrice(this)'>가격1</li>	<li id='가격2' onclick='findPrice(this)'>가격2</li>	<li id='가격3' onclick='findPrice(this)'>가격3</li>	<li id='가격4' onclick='findPrice(this)'>가격4</li>	<li id='가격5' onclick='findPrice(this)'>가격5</li>	</ul></li>"
 		}
 		
-		function listContainerCreate(list, num){
+		function listContainerCreate(list){
 			var tc = new Array();
 			var html = '';
 			for(var i = 0 in list){
@@ -215,7 +214,7 @@
 				    html += '</tr>';
 				    html += '<tr>';
 				    html += "<td width='20%'><button onclick = 'insertbasket("+tc[key].num+")' style='width:100%; align:center'>장바구니</button></td>";
-				    html += "<td width='20%'><button onclick = 'add("+tc[key].name+")' style='width:100%; align:center'>가구추가</button></td>";
+				    html += '<td width="20%"><button onclick="add(\'' + tc[key].name + '\')" style=" width:100%; align:center">가구 추가</button></td>';
 					html += '<td width="20%"><button onclick = "window.open(\'' + tc[key].detail + '\')" target="_blank" style=" width:100%; align:center">구매 링크</button></td>';
 					html += '</tr>';
 					html += '</table>';	
@@ -252,7 +251,7 @@
 				    html += '<tr>';
 				    html += "<td width='20%'><button onclick = 'count("+tc[key].num+","+tc[key].count+",1)' style = 'float:left;'>-</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label>"+tc[key].count+"</label><button onclick = 'count("+tc[key].num+","+tc[key].count+",2)' style = 'float:right;'>+</button></td>";
 				    html += "<td width='20%'><button onclick = 'deletebasket("+tc[key].num+")' style=' width:100%; align:center'>장바구니 삭제</button></td>";
-				    html += '<td width="20%"><button onclick="window.open(\'' + tc[key].detail + '\')" target="_blank" style=" width:100%; align:center">구매 링크</button></td>';	
+				    html += '<td width="20%"><button onclick ="window.open(\'' + tc[key].detail + '\')" target="_blank" style=" width:100%; align:center">구매 링크</button></td>';	
 					html += '</tr>';
 					html += '</table>';
 				}
