@@ -11,6 +11,7 @@ public interface UserService {
 
 	
 	int setFurn(String ID, String route);
-	String getFurn(String ID);
+	
+	Members getFurn(String ID);
 
 }

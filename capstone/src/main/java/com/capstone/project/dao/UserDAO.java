@@ -35,7 +35,7 @@ public class UserDAO {
 		return sqlSession.update("setFurn", map);
 	}
 
-	public String getFurn(String ID) {
+	public Members getFurn(String ID) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("ID", ID);
 		return sqlSession.selectOne("getFurn", map);

@@ -16,15 +16,12 @@
 		(#{id},#{pw},#{email})
 	</insert>
 	
-
-
-
 	<update id = "setFurn">
 		update members set room = #{route} where id = #{ID}
 	</update>
 	
-	<select id = "getFurn">
-		select email from members
+	<select id = "getFurn" resultType = "members">
+		select room from members
 		<if test = "ID != null">
 			where id = #{ID};
 		</if>

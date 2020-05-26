@@ -4,19 +4,17 @@
 <%@ page session="true"%>
 <html>
 <head>
-<title>Capstone</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<title>Capston</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 
-<link rel="shortcut icon" href="#">
 <link rel="stylesheet" href="<c:url value="/resources/style.css" />">
 <script src="<c:url value="/resources/UnityLoader.js" />"></script>
 <script src="https://kit.fontawesome.com/c176709a0d.js"
 	crossorigin="anonymous"></script>
 <script>
 	var unityInstance = UnityLoader.instantiate("unityContainer",
-			"/resources/Downloads.json");
+			"/resources/web14.json");
 </script>
 </head>
 <body>
@@ -25,6 +23,8 @@
 			<div id="logo">
 				<img src="<c:url value="/resources/caplogo.jpg"/>" width="20%"
 					height="100%">
+				<button style="display:none; visibility:hidden" id="node"> </button>
+            	<button style="display:none; visibility:hidden" id="nodel"> </button>
 			</div>
 			<c:choose>
 				<c:when test="${empty sessionScope.loginUser }">
@@ -51,6 +51,12 @@
 					</div>
 				</c:otherwise>
 			</c:choose>
+			<div id = "manual">
+				<button type = "button" class="fas fa-question-circle" 
+					id = "question" onclick = "questionCall()"
+					style="margin-left: 10px; font-size: 30px">
+				</button>	
+			</div>
 		</div>
 
 		<div id=content>
@@ -159,6 +165,13 @@
 
 	<script type="text/javascript">
 	
+		function questionCall(){
+		    var url = "/user/manual";
+		    var name = "manual";
+		    var option = "resizable = 0, width = 500, height = 650, top = 50, left = 200";
+			window.open(url, name, option);
+		}
+	
     	function clicked(){
         	unityInstance.SendMessage("UIEvent",'CreateButtonClick');
      	}
@@ -214,7 +227,7 @@
 				    html += '</tr>';
 				    html += '<tr>';
 				    html += "<td width='20%'><button onclick = 'insertbasket("+tc[key].num+")' style='width:100%; align:center'>장바구니</button></td>";
-				    html += '<td width="20%"><button onclick="add(\'' + tc[key].name + '\')" style=" width:100%; align:center">가구 추가</button></td>';
+				    html += '<td width="20%"><button onclick="add(\'' + tc[key].name + '\',\'' + tc[key].modeling + '\')" style=" width:100%; align:center">가구 추가</button></td>';
 					html += '<td width="20%"><button onclick = "window.open(\'' + tc[key].detail + '\')" target="_blank" style=" width:100%; align:center">구매 링크</button></td>';
 					html += '</tr>';
 					html += '</table>';	
@@ -249,7 +262,7 @@
 				    html += '<td colspan = "3">' + tc[key].price + '원</td>';
 				    html += '</tr>';
 				    html += '<tr>';
-				    html += "<td width='20%'><button onclick = 'count("+tc[key].num+","+tc[key].count+",1)' style = 'float:left;'>-</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label>"+tc[key].count+"</label><button onclick = 'count("+tc[key].num+","+tc[key].count+",2)' style = 'float:right;'>+</button></td>";
+				    html += "<td width='20%'><button onclick = 'count("+tc[key].name+","+tc[key].count+",1)' style = 'float:left;'>-</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label>"+tc[key].count+"</label><button onclick = 'count("+tc[key].num+","+tc[key].count+",2)' style = 'float:right;'>+</button></td>";
 				    html += "<td width='20%'><button onclick = 'deletebasket("+tc[key].num+")' style=' width:100%; align:center'>장바구니 삭제</button></td>";
 				    html += '<td width="20%"><button onclick ="window.open(\'' + tc[key].detail + '\')" target="_blank" style=" width:100%; align:center">구매 링크</button></td>';	
 					html += '</tr>';
@@ -369,45 +382,55 @@
 		
 		
 		
-		function add(addinfo){
-			alert(addinfo);
-		}
+		function add(addinfo, model){
+	         if(model == "O"){
+	            unityInstance.SendMessage('JsonManager','addfurniture',addinfo);
+	         }
+	         else {
+	            alert("모델링이 안되어 있습니다.")
+	         }
+	      }
 
-		function test(arg){ 
-			var save = "${sessionScope.loginUser.id}";
-			if(save != ""){
-				$.ajax({
-		    		url : "/jquery/save.do",
-		    		type : 'POST',
-		    		data : {ID : save, route : arg},
-		    		success : function(check){
-		    			if(check == 1) {
-	    					alert("저장 완료");
-	 		   			}else{
-	    					alert("저장 실패")
-	    				}	
-		    		}
-				})
-			}else{
-				alert("로그인해라");
-			}
-		}
+	      function saveweb(arg){ 
+	         
+	         var save = "${sessionScope.loginUser.id}";
+	         if(save != ""){
+	            $.ajax({
+	                url : "/jquery/save.do",
+	                type : 'POST',
+	                data : {ID : save, route : arg},
+	                success : function(check){
+	                   if(check == 1) {
+	                      alert("저장 완료");
+	                      }else{
+	                      alert("저장 실패")
+	                   }   
+	                }
+	            })
+	         }else{
+	            alert("로그인하세요");
+	         }
+	      }
 
-		function load(){
-			var load = "${sessionScope.loginUser.id}";
-			if(load != ""){
-				$.ajax({
-					url : "/jquery/load.do",
-					type : 'POST',
-					data : {ID : load},
-					success : function(check){
-						alert(check); // room 정보
-					}
-				})
-			}else{
-				alert("로그인해라");
-			}
-		}
+	      function loadunity(){
+	         
+	         var load = "${sessionScope.loginUser.id}";
+	         var temp = "no";
+	         if(load != ""){
+	            $.ajax({
+	               url : "/jquery/load.do",
+	               type : 'POST',
+	               data : {ID : load},
+	               success : function(check){
+	                  unityInstance.SendMessage('JsonManager','FromWebString',check); // room 정보
+	               }
+	            })
+	         }else{
+	            alert("로그인하세요");
+	            unityInstance.SendMessage('JsonManager','FromWebString',temp);
+	         }
+
+	      }
 
 	</script>
 

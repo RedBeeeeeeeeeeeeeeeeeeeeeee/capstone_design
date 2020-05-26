@@ -86,7 +86,12 @@ public class UserController {
 		ModelAndView mav = new ModelAndView();
 		return mav;
 	}
-
+	
+	@RequestMapping(value="user/manual",method = RequestMethod.GET)
+	public ModelAndView manual() {
+		ModelAndView mav = new ModelAndView();
+		return mav;
+	}
 	
 	@RequestMapping(value="/jquery/save.do",method = RequestMethod.POST)
 	public @ResponseBody int save(Members member,HttpSession session, HttpServletRequest httpServletRequest) {
@@ -96,9 +101,13 @@ public class UserController {
 
 	@RequestMapping(value="/jquery/load.do",method = RequestMethod.POST)
 	public @ResponseBody String load(Members member,HttpSession session, HttpServletRequest httpServletRequest) {
-
-		String save  = userService.getFurn(httpServletRequest.getParameter("ID"));
-
-		return save;
+		String ret ="";
+		try {
+			Members save  = userService.getFurn(httpServletRequest.getParameter("ID"));
+			ret = save.getRoom();
+		}catch (Exception e) {
+			ret = "no";
+		}
+		return ret;
 	}
 }

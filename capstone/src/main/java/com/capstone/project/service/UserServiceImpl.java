@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public String getFurn(String ID) {
+	public Members getFurn(String ID) {
 		return userDAO.getFurn(ID);
 	}
 }
