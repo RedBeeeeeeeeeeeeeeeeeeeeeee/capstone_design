@@ -5,13 +5,17 @@
 <html>
 <head>
 <title>Capston</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+ <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+ 	
+<link rel="stylesheet"
+	href="<c:url value="https://fonts.googleapis.com/css2?family=Jua&display=swap" />">
 <link rel="stylesheet" href="<c:url value="/resources/style.css" />">
 <script src="<c:url value="/resources/UnityLoader.js" />"></script>
 <script src="https://kit.fontawesome.com/c176709a0d.js"
 	crossorigin="anonymous"></script>
+
 <script>
 	var unityInstance = UnityLoader.instantiate("unityContainer",
 			"/resources/web14.json");
@@ -23,111 +27,183 @@
 			<div id="logo">
 				<img src="<c:url value="/resources/caplogo.jpg"/>" width="20%"
 					height="100%">
-				<button style="display:none; visibility:hidden" id="node"> </button>
-            	<button style="display:none; visibility:hidden" id="nodel"> </button>
+				<button style="display: none; visibility: hidden" id="node">
+				</button>
+				<button style="display: none; visibility: hidden" id="nodel">
+				</button>
 			</div>
 			<c:choose>
 				<c:when test="${empty sessionScope.loginUser }">
 					<div id="signin">
-						<button type="button" class="fas fa-user-circle" id="signInButton"
+						<a class="fas fa-user-circle" id="signInButton"
 							onclick="location.href='/user/login'"
-							style="margin-left: 50px; font-size: 30px">
+							style="margin-left: 50px; margin-top: 5px; font-size: 30px">
 							<span aria-hidden=true></span>
-						</button>
+						</a>
 					</div>
 				</c:when>
 				<c:otherwise>
-					<div id="signout">
-							<div id="nickname">
-                             <p> ${sessionScope.loginUser.id } </p> 
-                          </div>
-						<div id="logout">
-							<button type="button" class="far fa-user-circle"
-								id="signOutButton" onclick="logoutCall()"
-								style="margin-left: 30px; font-size: 30px">
-								<span aria-hidden=true></span>
-							</button>
-						</div>
-					</div>
+					<c:choose>
+						<c:when test="${sessionScope.loginUser.id  eq 'admin'}">
+							<div id="signout">
+								<div id="logout">
+									<a type="button" class="far fa-user-circle" id="signOutButton"
+										data-toggle="modal" data-target="#adminInfoModal"
+										style="margin-left: 50px; margin-top: 5px; font-size: 30px">
+										<span aria-hidden=true></span>
+									</a>
+								</div>
+
+							</div>
+							<div class="modal fade" id="adminInfoModal" role="dialog"
+								tabindex="-1" aria-labelledby="modal-login-label"
+								aria-hidden="true">
+								<div class="modal-dialog modal-custom" role="document">
+									<!-- Modal content-->
+									<div class="modal-content">
+										<!--  <div class="modal-header" style="padding: 30px 30px;"> 					
+									</div> -->
+										<div class="modal-body"
+											style="padding: 5px 10px; height: 80px;">
+											<div class="fieldlabel">
+												<label for="userId">${sessionScope.loginUser.id}</label>
+											</div>
+											<div class="fieldlabel">
+												<label for="email">${sessionScope.loginUser.email}</label>
+											</div>
+											<input type="button" id="crawling" value="crawling"
+												onclick="logoutCall2()">
+										</div>
+										<div class="modal-footer">
+											<input type="button" id="logoutButton" value="로그아웃"
+												onclick="logoutCall()">
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div id="signout">
+								<div id="logout">
+									<a class="far fa-user-circle" id="userInfoButton"
+										onclick="userModalPop()"
+										style="margin-left: 50px; margin-top: 5px; font-size: 30px">
+										<span aria-hidden=true></span>
+									</a>
+								</div>
+							</div>
+
+							<div class="modal fade" id="userInfoModal" role="dialog"
+								tabindex="-1" aria-labelledby="modal-login-label"
+								aria-hidden="true">
+								<div class="modal-dialog modal-custom" role="document">
+									<!-- Modal content-->
+									<div class="modal-content">
+										<!--  <div class="modal-header" style="padding: 30px 30px;"> 					
+									</div> -->
+										<div class="modal-body"
+											style="padding: 5px 10px; height: 80px;">
+											<div class="fieldlabel">
+												<label for="userId">${sessionScope.loginUser.id}</label>
+											</div>
+											<div class="fieldlabel">
+												<label for="email">${sessionScope.loginUser.email}</label>
+											</div>
+										</div>
+										<div class="modal-footer">
+											<input type="button" id="logoutButton" value="로그아웃"
+												onclick="logoutCall()">
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</c:otherwise>
+					</c:choose>
+
 				</c:otherwise>
 			</c:choose>
-			<div id = "manual">
-				<button type = "button" class="fas fa-question-circle" 
-					id = "question" onclick = "questionCall()"
-					style="margin-left: 10px; font-size: 30px">
-				</button>	
+			<div id="manual">
+				<a type="label" class="fas fa-question-circle" id="question"
+					onclick="questionCall()"
+					style="margin-left: 10px; margin-top: 5px; font-size: 30px"> </a>
 			</div>
 		</div>
 
 		<div id=content>
 			<div id="left">
 				<i class="fas fa-couch" aria-hidden="true"
-					style="margin-left: 6px; margin-right: 10px; margin-top: 270px; font-size: 3em; color: #482b19; width: 10%; float: left">
+					style="position:relative; margin-left: 20px; margin-top: 270px; font-size: 3em; color: #482b19; width: 45px; float: left">
+	
 				</i>
 				<div id="list">
 					<div id="kategorie">
 						<div id="find">
 							<ul class="Menu">
-								<li id="type">Type
+                       			 <li id="type" class="mainMenu">Type
 									<ul class="subMenu">
 										<li id="Type" onclick="findType(this)">Type</li>
-										<li id="책상" onclick="findType(this)">책상</li>
-										<li id="의자" onclick="findType(this)">의자</li>
-										<li id="쇼파" onclick="findType(this)">쇼파</li>
-										<li id="침대" onclick="findType(this)">침대</li>
-										<li id="옷장" onclick="findType(this)">옷장</li>
-										<li id="화장대" onclick="findType(this)">화장대</li>
-										<li id="선반" onclick="findType(this)">선반</li>
-										<li id="기타" onclick="findType(this)">기타</li>
+										<li id="bed" onclick="findType(this)">bed</li>
+										<li id="cabinet" onclick="findType(this)">cabinet</li>
+										<li id="chair" onclick="findType(this)">chair</li>
+										<li id="closet" onclick="findType(this)">closet</li>
+										<li id="drawer" onclick="findType(this)">drawer</li>
+										<li id="shelf" onclick="findType(this)">shelf</li>
+										<li id="sofa" onclick="findType(this)">sofa</li>
+										<li id="table" onclick="findType(this)">table</li>
 									</ul>
 								</li>
 
-								<li id="brand">Brand
+                        		<li id="brand" class="brandMenu">Brand
 									<ul class="subMenu">
 										<li id="Brand" onclick="findBrand(this)">Brand</li>
-										<li id="브랜드1" onclick="findBrand(this)">브랜드1</li>
-										<li id="브랜드2" onclick="findBrand(this)">브랜드2</li>
-										<li id="브랜드3" onclick="findBrand(this)">브랜드3</li>
-										<li id="브랜드4" onclick="findBrand(this)">브랜드4</li>
-										<li id="브랜드5" onclick="findBrand(this)">브랜드5</li>
+										<li id="IKEA" onclick="findBrand(this)">IKEA</li>
+										<li id="LIVART" onclick="findBrand(this)">LIVART</li>
+										<li id="CASAMIA" onclick="findBrand(this)">CASAMIA</li>
 									</ul>
 								</li>
 
-								<li id="color">Color
-									<ul class="subMenu">
+                        		<li id="color" class="colorMenu">Color
+                         		  <ul class="subMenu">
 										<li id="Color" onclick="findColor(this)">Color</li>
-										<li id="색깔1" onclick="findColor(this)">색깔1</li>
-										<li id="색깔2" onclick="findColor(this)">색깔2</li>
-										<li id="색깔3" onclick="findColor(this)">색깔3</li>
-										<li id="색깔4" onclick="findColor(this)">색깔4</li>
-										<li id="색깔5" onclick="findColor(this)">색깔5</li>
+										<li id="black" onclick="findColor(this)">black</li>
+										<li id="blue" onclick="findColor(this)">blue</li>
+										<li id="brown" onclick="findColor(this)">brown</li>
+										<li id="gray" onclick="findColor(this)">gray</li>
+										<li id="green" onclick="findColor(this)">green</li>
+										<li id="pink" onclick="findColor(this)">pink</li>
+										<li id="red" onclick="findColor(this)">red</li>
+										<li id="white" onclick="findColor(this)">white</li>
 									</ul>
 								</li>
 
-								<li id="price">Price
-									<ul class="subMenu">
-										<li id="Price" onclick="findPrice(this)">Price</li>
-										<li id="가격1" onclick="findPrice(this)">가격1</li>
-										<li id="가격2" onclick="findPrice(this)">가격2</li>
-										<li id="가격3" onclick="findPrice(this)">가격3</li>
-										<li id="가격4" onclick="findPrice(this)">가격4</li>
-										<li id="가격5" onclick="findPrice(this)">가격5</li>
-									</ul>
+                        		<li id="price" class="price">Price
+		                          <ul class="priceMenu">
+		                              <li id="Price" onclick="findPrice(this)">Price</li>
+		                              <li id="가격1" onclick="findPrice(this)">0~30000</li>
+		                              <li id="가격2" onclick="findPrice(this)">30001~60000</li>
+		                              <li id="가격3" onclick="findPrice(this)">60001~90000</li>
+		                              <li id="가격4" onclick="findPrice(this)">90001~120000</li>
+		                              <li id="가격5" onclick="findPrice(this)">120001~200000</li>
+		                           </ul>
 								</li>
 							</ul>
 						</div>
 
 						<div id="search">
-							<button type="button" class="fas fa-search" onclick = "showList()"
-								style="font-size: 20px;">
-							</button>
+							<a type="button" class="fas fa-search" onclick="showList()"
+								style="font-size: 20px;"> </a>
 						</div>
 
 					</div>
 
 					<div id="listview">
 					</div>
-
+					<div id="page">
+                  
+               		</div>
+	
 				</div>
 			</div>
 
@@ -137,18 +213,14 @@
 
 			<div id="right">
 				<i class="fas fa-cart-arrow-down" aria-hidden="true"
-					style="margin-right : 6px; margin-left: 6px; margin-top: 270px; font-size: 3em; color: #482b19; width: 10%; float: right">
+					style="position:relative; margin-right:23px;margin-top: 270px; font-size: 3em; color: #482b19; width: 45px; float: right;">
 				</i>
-				<div id = "basket">
-					<div id = "totalprice">
-					
-					</div>
-					<div id = "basketview">
-						
-					</div>
-				
-				
-				
+				<div id="basket">
+					<div id="totalprice"></div>
+					<div id="basketview" sytle="position:relative"></div>
+
+
+
 				</div>
 			</div>
 		</div>
@@ -164,7 +236,11 @@
 	</div>
 
 	<script type="text/javascript">
-	
+		
+		function userModalPop(){
+			$('#userInfoModal').modal('show');
+		}
+		
 		function questionCall(){
 		    var url = "/user/manual";
 		    var name = "manual";
@@ -178,65 +254,173 @@
 		
 		function findType(e) {
 			type = document.getElementById('type');
-			type.innerHTML = "<li id = 'type' style = 'list-style:none'>"
+			type.innerHTML = "<li id = 'type' class = 'mainMenu' style = 'list-style:none'>"
 					+ e.innerText
-					+ "<ul class = 'subMenu'><li id = 'Type' onclick = 'findType(this)'>Type</li><li id = '책상' onclick = 'findType(this)'>책상</li><li id = '의자' onclick = 'findType(this)'>의자</li><li id = '쇼파' onclick = 'findType(this)'>쇼파</li><li id = '침대' onclick = 'findType(this)'>침대</li><li id = '옷장' onclick = 'findType(this)'>옷장</li><li id = '화장대' onclick = 'findType(this)'>화장대</li><li id = '선반' onclick = 'findType(this)'>선반</li><li id = '기타' onclick = 'findType(this)'>기타</li></ul></li>";
+					+ "<ul class = 'subMenu'><li id='Type' onclick='findType(this)'>Type</li><li id='bed' onclick='findType(this)'>bed</li><li id='cabinet' onclick='findType(this)'>cabinet</li><li id='chair' onclick='findType(this)'>chair</li><li id='closet' onclick='findType(this)'>closet</li><li id='drawer' onclick='findType(this)'>drawer</li><li id='shelf' onclick='findType(this)'>shelf</li><li id='sofa' onclick='findType(this)'>sofa</li><li id='table' onclick='findType(this)'>table</li></ul></li>"
 		}
 		
 		function findBrand(e){
 			brand = document.getElementById('brand');
-			brand.innerHTML = "<li id = 'brand' style = 'list-style:none'>"
+			brand.innerHTML = "<li id = 'brand' class = 'brandMenu' style = 'list-style:none'>"
 					+ e.innerText
-					+"<ul class='subMenu'><li id='Brand' onclick='findBrand(this)'>Brand</li>	<li id='브랜드1' onclick='findBrand(this)'>브랜드1</li>	<li id='브랜드2' onclick='findBrand(this)'>브랜드2</li>	<li id='브랜드3' onclick='findBrand(this)'>브랜드3</li>	<li id='브랜드4' onclick='findBrand(this)'>브랜드4</li>	<li id='브랜드5' onclick='findBrand(this)'>브랜드5</li>	</ul></li>"
+					+"<ul class='subMenu'><li id='Brand' onclick='findBrand(this)'>Brand</li><li id='IKEA' onclick='findBrand(this)'>IKEA</li>	<li id='LIVART' onclick='findBrand(this)'>LIVART</li>	<li id='CASAMIA' onclick='findBrand(this)'>CASAMIA</li></ul></li>"
 		}
 		
 		function findColor(e){
 			color = document.getElementById('color');
-			color.innerHTML = "<li id = 'color' style = 'list-style:none'>"
+			color.innerHTML = "<li id = 'color'  class = 'colorMenu' style = 'list-style:none'>"
 					+ e.innerText
-					+ "<ul class='subMenu'><li id='Color' onclick='findColor(this)'>Color</li><li id='색깔1' onclick='findColor(this)'>색깔1</li><li id='색깔2' onclick='findColor(this)'>색깔2</li>	<li id='색깔3' onclick='findColor(this)'>색깔3</li>	<li id='색깔4' onclick='findColor(this)'>색깔4</li>	<li id='색깔5' onclick='findColor(this)'>색깔5</li>	</ul></li>"
+					+ "<ul class='subMenu'><li id='Color' onclick='findColor(this)'>Color</li>	<li id='black' onclick='findColor(this)'>black</li><li id='blue' onclick='findColor(this)'>blue</li><li id='brown' onclick='findColor(this)'>brown</li><li id='gray' onclick='findColor(this)'>gray</li><li id='green' onclick='findColor(this)'>green</li>	<li id='pink' onclick='findColor(this)'>pink</li><li id='red' onclick='findColor(this)'>red</li>	<li id='white' onclick='findColor(this)'>white</li></ul></li>"
 		}
 		
 		function findPrice(e){
-			price = document.getElementById('price');
-			price.innerHTML = "<li id = 'price' style = 'list-style:none'>"
+			 price = document.getElementById('price');
+		     price.innerHTML = "<li id = 'price'  class = 'price' style = 'list-style:none'>"
 					+ e.innerText
-					+ "<ul class='subMenu'>	<li id='Price' onclick='findPrice(this)'>Price</li><li id='가격1' onclick='findPrice(this)'>가격1</li>	<li id='가격2' onclick='findPrice(this)'>가격2</li>	<li id='가격3' onclick='findPrice(this)'>가격3</li>	<li id='가격4' onclick='findPrice(this)'>가격4</li>	<li id='가격5' onclick='findPrice(this)'>가격5</li>	</ul></li>"
+			        + "<ul class='priceMenu'><li id='Price' onclick='findPrice(this)'>Price</li><li id='가격1' onclick='findPrice(this)'>0~30000</li><li id='가격2' onclick='findPrice(this)'>30001~60000</li><li id='가격3' onclick='findPrice(this)'>60001~90000</li><li id='가격4' onclick='findPrice(this)'>90001~120000</li><li id='가격5' onclick='findPrice(this)'>120001~200000</li></ul></li>"
 		}
 		
 		function listContainerCreate(list){
-			var tc = new Array();
-			var html = '';
+            var tc = new Array();
+            var temp = new Array();
+           
+            var html = '';
+            
+            //page부분
+            var pagehtml ='';
+            var totalpage;
+            if(list.length%10==0){
+               totalpage = parseInt(local.length/10);
+            } else {
+               totalpage = parseInt(local.length/10)+1;
+            }
+            var start = (page-1)*10;
+            var end = page*10-1;
+
 			for(var i = 0 in list){
 				tc.push({num : list[i].num, name : list[i].name, brand : list[i].brand, type : list[i].type, price : list[i].price, image : list[i].image, detail : list[i].detail, modeling : list[i].modeling }); 
 			}
 			if(tc.length == 0){
+				html += '<p style="font-size:20px;font-family:Jua, sans-serif; margin-top:270px; text-align:center;">일치하는 가구가 없습니다.</p>';
 				$("#listview").empty();
+				$("#listview").append(html);	
 			}else{
 				for(key in tc){
-					html += '<table border = "1" width="100%">';
+					html += '<table border = "1" width="100%" height="30%">';
 				    html += '<tr>';
 				    html += '<td rowspan="4" width="20%"><img src="' + tc[key].image + '" height="100"/></td>';
-				    html += '<td colspan="3">' + tc[key].brand + '</td>';
+				    html += '<td colspan="3" height ="30%" style="font-size:25px; font-family:Jua, sans-serif;";>' + tc[key].name + '</td>';
 				    html += '</tr>';
 				    html += '<tr>';
-				    html += '<td colspan="3">' + tc[key].name + '</td>';
+				    html += '<td colspan="3"height ="20%"; style="font-size:15px; font-family:Jua, sans-serif;">' + tc[key].brand + '</td>';
 				    html += '</tr>';
 				    html += '<tr>';
-				    html += '<td colspan = "3">' + tc[key].price + '원</td>';
+				    html += '<td colspan = "3"height ="30%" style="font-size:20px; font-family:Jua, sans-serif;">' + tc[key].price + '원</td>';
 				    html += '</tr>';
 				    html += '<tr>';
-				    html += "<td width='20%'><button onclick = 'insertbasket("+tc[key].num+")' style='width:100%; align:center'>장바구니</button></td>";
-				    html += '<td width="20%"><button onclick="add(\'' + tc[key].name + '\',\'' + tc[key].modeling + '\')" style=" width:100%; align:center">가구 추가</button></td>';
-					html += '<td width="20%"><button onclick = "window.open(\'' + tc[key].detail + '\')" target="_blank" style=" width:100%; align:center">구매 링크</button></td>';
+				    html += "<td width='20%'height ='20%'><button class = 'btn' onclick = 'insertbasket("+tc[key].num+")' style='width:100%; height:100%;align:center; background-color:#ededed; border:white 0px; outline:0; font-size:15px; font-family:Jua, sans-serif;'>장바구니</button></td>";
+				    html += '<td width="20%"height ="20%"><button class = "btn" onclick="add(\'' + tc[key].num + '\',\'' + tc[key].modeling + '\')" style=" width:100%; height:100%; align:center background-color:#ededed; border:white 0px; outline:0;font-size:15px; font-family:Jua, sans-serif; ">가구 추가</button></td>';
+					html += '<td width="20%"height ="20%"><button class = "btn" onclick = "window.open(\'' + tc[key].detail + '\')" target="_blank" style=" width:100%; height:100%; align:center background-color:#ededed; border:white 0px; outline:0; font-size:15px; font-family:Jua, sans-serif;">구매 링크</button></td>';
 					html += '</tr>';
 					html += '</table>';	
 				}
-				$("#listview").empty()
+				$("#listview").empty();
 				$("#listview").append(html);	
-			
+				$('.btn').on({
+				    mouseenter: function(){$(this).css('background-color','#dedede');},
+				    mouseleave: function(	){$(this).css('background-color','#ededed');}
+				});
+	            
+				if(tc.length == 0){
+	                  $("#page").empty();
+	           	}else{
+	            var ps;
+	              if(page%10==0){
+	                 ps = page-9;
+	              } else {
+	                 ps = parseInt(page/10)*10+1;
+	              }
+	              var pe = ps+9;
+	              for(;ps<=pe;ps++){
+	                 if(ps>totalpage) break;
+	                 pagehtml += '<a onclick="listContainerCreate(\''+ps+'\')">'+ps+'</a>';
+	              }
+	              $("#page").empty();
+	               $("#page").append(pagehtml); 
+	           }
 			}
 		}
+		
+	      function listContainerCreate(page){
+	            var tc = new Array();
+	            var temp = new Array();
+	           
+	            var html = '';
+	            
+	            //page부분
+	            var pagehtml ='';
+	            var totalpage;
+	            if(list.length%10==0){
+	               totalpage = parseInt(local.length/10);
+	            } else {
+	               totalpage = parseInt(local.length/10)+1;
+	            }
+	            var start = (page-1)*10+1;
+	            var end = page*10-1;
+	            
+	            for(;start<=end;start++){
+	              if(start==local.length) break;
+	               tc.push({num : local[start].num, name : local[start].name, brand : local[start].brand, type : local[start].type, price : local[start].price, image : local[start].image, detail : local[start].detail, modeling : local[start].modeling }); 
+	            }
+	            if(tc.length == 0){
+	               $("#listview").empty();
+	            }else{
+	               for(key in tc){
+	                  html += '<table border = "1" width="100%" height="30%">';
+	                   html += '<tr>';
+	                   html += '<td rowspan="4" width="20%"><img src="' + tc[key].image + '" height="100"/></td>';
+	                   html += '<td colspan="3" height ="30%"><strong style="font-size:25px; font-family:Jua, sans-serif;">' + tc[key].name + '</strong></td>';
+	                   html += '</tr>';
+	                   html += '<tr>';
+	                   html += '<td colspan="3"height ="20%">' + tc[key].brand + '</td>';
+	                   html += '</tr>';
+	                   html += '<tr>';
+	                   html += '<td colspan = "3"height ="30%" style = "font-size:20px">' + tc[key].price + '원</td>';
+	                   html += '</tr>';
+	                   html += '<tr>';
+	                   html += "<td width='20%'height ='20%'><button class = 'btn' onclick = 'insertbasket("+tc[key].num+")' style='width:100%; height:100%;align:center; background-color:#ededed; border:white 0px; outline:0; '>장바구니</button></td>";
+	                   html += '<td width="20%"height ="20%"><button class = "btn" onclick="add(\'' + tc[key].num + '\',\'' + tc[key].modeling + '\')" style=" width:100%; height:100%; align:center background-color:#ededed; border:white 0px; outline:0; ">가구 추가</button></td>';
+	                  html += '<td width="20%"height ="20%"><button class = "btn" onclick = "window.open(\'' + tc[key].detail + '\')" target="_blank" style=" width:100%; height:100%; align:center background-color:#ededed; border:white 0px; outline:0; ">구매 링크</button></td>';
+	                  html += '</tr>';
+	                  html += '</table>';   
+	               }
+	               $("#listview").empty();
+	               $("#listview").append(html);   
+	               $('.btn').on({
+	                   mouseenter: function(){$(this).css('background-color','#dedede');},
+	                   mouseleave: function(){$(this).css('background-color','#ededed');}
+	               });
+	            }
+	            
+	            if(tc.length == 0){
+	                  $("#page").empty();
+	           } else{
+	              var ps;
+	              if(page%10==0){
+	                 ps = page-9;
+	              } else {
+	                 ps = parseInt(page/10)*10+1;
+	              }
+	              var pe = ps+9;
+	              
+	              for(;ps<=pe;ps++){
+	                 if(ps>totalpage) break;
+	                 pagehtml += '<a onclick="listContainerCreate(\''+ps+'\')">&nbsp;'+ps+'&nbsp;</a>';
+	              }
+	              $("#page").empty();
+	               $("#page").append(pagehtml); 
+	           }
+	       }
 		function basketContainerCreate(list){
 			var tc = new Array();
 			var html = '';
@@ -249,41 +433,47 @@
 				$("#totalprice").empty().append("<label style = 'float:right; font-size:25px; margin-right:30px;'>총 금액 :   "+totalprice+" 원</label>");
 				$("#basketview").empty();
 			}else{
-				for(key in tc){
-					html += '<table border = "1" width="100%">';
-				    html += '<tr>';
-				    html += '<td rowspan="4" width="20%"><img src="' + tc[key].image + '" height="100"/></td>';
-				    html += '<td colspan="3">' + tc[key].brand + '</td>';
-				    html += '</tr>';
-				    html += '<tr>';
-				    html += '<td colspan="3">' + tc[key].name + '</td>';
-				    html += '</tr>';
-				    html += '<tr>';
-				    html += '<td colspan = "3">' + tc[key].price + '원</td>';
-				    html += '</tr>';
-				    html += '<tr>';
-				    html += "<td width='20%'><button onclick = 'count("+tc[key].name+","+tc[key].count+",1)' style = 'float:left;'>-</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label>"+tc[key].count+"</label><button onclick = 'count("+tc[key].num+","+tc[key].count+",2)' style = 'float:right;'>+</button></td>";
-				    html += "<td width='20%'><button onclick = 'deletebasket("+tc[key].num+")' style=' width:100%; align:center'>장바구니 삭제</button></td>";
-				    html += '<td width="20%"><button onclick ="window.open(\'' + tc[key].detail + '\')" target="_blank" style=" width:100%; align:center">구매 링크</button></td>';	
-					html += '</tr>';
-					html += '</table>';
-				}
-				$("#basketview").empty().append(html);;
-				$("#totalprice").empty().append("<label style = 'float:right; font-size:25px; margin-right:30px;'>총 금액 :   "+totalprice+" 원</label>");
+	        	for(key in tc){
+	                html += '<table border = "1" width="100%" height="30%">';
+	                html += '<tr>';
+	                html += '<td rowspan="4" width="20%"><img src="' + tc[key].image + '" height="100"/></td>';
+	                html += '<td colspan="3"height ="30%" style="font-size:25px; font-family:Jua, sans-serif;">' + tc[key].name + '</strong></td>';
+	                html += '</tr>';
+	                html += '<tr>';
+	                html += '<td colspan="3"height ="20%" style="font-size:15px; font-family:Jua, sans-serif;">' + tc[key].brand + '</td>';
+	                html += '</tr>';
+	                html += '<tr>';
+	                html += '<td colspan = "3"height ="30%" style="font-size:20px; font-family:Jua, sans-serif;">' + tc[key].price + '원</td>';
+	                html += '</tr>';
+	                html += '<tr>';
+	                html += "<td width='20%' height ='20%'><button onclick = 'count("+tc[key].num+","+tc[key].count+",1)' style = 'height:100%; float:left; font-family:Jua, sans-serif;'>-</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label style='font-size:15px; font-family:Jua, sans-serif; margin-top:6px;'>"+tc[key].count+"</label><button onclick = 'count("+tc[key].num+","+tc[key].count+",2)' style = 'height:100%; float:right; font-family:Jua, sans-serif;'>+</button></td>";
+	                html += "<td width='20%' height ='20%'><button class = 'btn' onclick = 'deletebasket("+tc[key].num+")' style='width:100%; height:100%;align:center; background-color:#ededed; border:white 0px; outline:0; font-size:15px; font-family:Jua, sans-serif;'>장바구니 삭제</button></td>";
+	                html += '<td width="20%" height ="20%"><button class = "btn" onclick ="window.open(\'' + tc[key].detail + '\')" style="width:100%; height:100%;align:center; background-color:#ededed; border:white 0px; outline:0;font-size:15px; font-family:Jua, sans-serif;">구매 링크</button></td>';   
+	                html += '</tr>';
+	            	html += '</table>';
+	            }
+				$("#basketview").empty().append(html);
+				$("#totalprice").empty().append("<label style = 'float:right; font-size:25px; margin-right:30px; font-family:Jua, sans-serif;'>총 금액 :   "+totalprice+" 원</label>");
+				$('.btn').on({
+				    mouseenter: function(){$(this).css('background-color','#dedede');},
+				    mouseleave: function(	){$(this).css('background-color','#ededed');}
+				});
 			}		
 		}
-			 
+	
+		var local = new Array();
+		
 		function showList(){
-			$.ajax({
-				url : "/jquery/list.do",
-				type : 'POST',
-				data : {type : type.innerText, brand : brand.innerText, color : color.innerText, price : price.innerText},
-				success : function(check){
-					
-					listContainerCreate(check);
-				}
-			})
-		}
+	         $.ajax({
+	            url : "/jquery/list.do",
+	            type : 'POST',
+	            data : {type : type.innerText, brand : brand.innerText, color : color.innerText, price : price.innerText},
+	            success : function(check){
+	               local = check.valueOf();
+	               listContainerCreate(1);
+	            }
+	         })
+	      }
 		
 		
 		function logoutCall() {
@@ -357,7 +547,7 @@
 		
 		function count(num, count, type){
 			var changebasket = "${sessionScope.loginUser.id}";
-			var check
+			var check;
 			if(type ==1){
 				if(count == 1){
 					deletebasket(num);
@@ -387,7 +577,7 @@
 	            unityInstance.SendMessage('JsonManager','addfurniture',addinfo);
 	         }
 	         else {
-	            alert("모델링이 안되어 있습니다.")
+	            alert("모델링이 안되어 있습니다.");
 	         }
 	      }
 
@@ -403,7 +593,7 @@
 	                   if(check == 1) {
 	                      alert("저장 완료");
 	                      }else{
-	                      alert("저장 실패")
+	                      alert("저장 실패");
 	                   }   
 	                }
 	            })

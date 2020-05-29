@@ -19,5 +19,8 @@ public class ListServiceImpl implements ListService{
       return listDAO.getListOne( type, brand,color, price);
    }
    
-   
+	@Override
+	public int insertFurn(Lists lists) {
+		return listDAO.insertFurn(lists);
+	}
 }

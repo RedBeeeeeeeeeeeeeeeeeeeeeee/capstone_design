@@ -19,8 +19,19 @@ public class ListDAO {
 		map.put("type",type);
 		map.put("brand",brand);
 		map.put("color",color);
-		map.put("price",price);
+		if(price.equals("Price")) {
+			map.put("price", price);
+		} else {
+			String[] temp = price.split("~");
+			map.put("price", temp[0]);
+			map.put("maxPrice", temp[1]);
+		}
 		return sqlSession.selectList("getListOne",map);
 	}
 
+	
+	public int insertFurn(Lists lists) {
+		return sqlSession.insert("insertFurn",lists);
+	}
+	
 }

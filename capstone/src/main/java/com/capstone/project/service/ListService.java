@@ -7,5 +7,5 @@ import com.capstone.project.logic.Lists;
 public interface ListService {
 
 	List<Lists> getListOne(String type, String brand, String color, String price);
-
+	int insertFurn(Lists lists);
 }

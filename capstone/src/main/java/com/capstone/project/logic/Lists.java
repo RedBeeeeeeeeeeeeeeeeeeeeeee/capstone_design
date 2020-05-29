@@ -6,10 +6,46 @@ public class Lists {
 	private String type;
 	private String brand;
 	private String color;
-	private String price;
+	private int price;
 	private String image;
 	private String detail;
 	private String modeling;
+	
+	
+    private int page;
+    private int perPageNum;
+
+    public Lists() {
+        this.page = 1;
+        this.perPageNum = 10;
+    }
+    
+    public int getPageStart() {
+        return (this.page-1)*perPageNum;
+    }
+    
+    public int getPage() {
+        return page;
+    }
+    public void setPage(int page) {
+        if(page <= 0) {
+            this.page = 1;
+        } else {
+            this.page = page;
+        }
+    }
+    public int getPerPageNum() {
+        return perPageNum;
+    }
+    public void setPerPageNum(int pageCount) {
+        int count = this.perPageNum;
+        if(pageCount != count) {
+            this.perPageNum = count;
+        } else {
+            this.perPageNum = pageCount;
+        }
+    }
+	
 	
 	public int getNum() {
 		return num;
@@ -41,10 +77,10 @@ public class Lists {
 	public void setColor(String color) {
 		this.color = color;
 	}
-	public String getPrice() {
+	public int getPrice() {
 		return price;
 	}
-	public void setPrice(String price) {
+	public void setPrice(int price) {
 		this.price = price;
 	}
 	public String getImage() {
@@ -65,4 +101,7 @@ public class Lists {
 	public void setModeling(String modeling) {
 		this.modeling = modeling;
 	}
+    
+
+	
 }

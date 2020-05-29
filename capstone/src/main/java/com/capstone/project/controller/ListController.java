@@ -27,6 +27,7 @@ public class ListController {
 													   httpServletRequest.getParameter("color"),
 													   httpServletRequest.getParameter("price"));
 		
+		
 		return listCheck;
 	}
 }

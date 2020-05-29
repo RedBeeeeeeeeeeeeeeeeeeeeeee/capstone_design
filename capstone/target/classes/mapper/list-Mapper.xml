@@ -3,7 +3,7 @@
 <mapper namespace="mapper.list-Mapper">
 	
 	<select id="getListOne" resultType="lists">
-	SELECT * FROM furnitures
+		SELECT * FROM furnitures
 		<where>
 			<if test="type != 'Type'">
 				type = #{type}
@@ -15,11 +15,14 @@
 				AND color = #{color}
 			</if>
 			<if test="price != 'Price'">
-				AND price = #{price}
+				AND price BETWEEN #{price} AND #{maxPrice}
 			</if>
 		</where>
-		
+		ORDER BY modeling
 	</select>
 	
-
+	<insert id="insertFurn">
+		insert into furnitures (num, name, type, brand, color, price, image, detail, modeling)
+		values (#{num},#{name},#{type},#{brand},#{color}, #{price},#{image},#{detail},#{modeling})
+	</insert>
 </mapper>

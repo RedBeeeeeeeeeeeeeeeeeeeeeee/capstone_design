@@ -324,8 +324,7 @@ function signUpValidation(){
    var userId = $("#signup_userId").val();
    var userPw = $("#signup_password").val();
    var userPwCheck = $("#signup_passwordCheck").val();
-   var email = $("#signup_email").val();
-   
+   var email = $("#signup_email").val() + '@' + $("#domain").val();
    if(!userId){
       alert("아이디 입력은 필수입니다.");
       $("#signup_userId").focus();
