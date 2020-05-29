@@ -5,10 +5,17 @@
 <html>
 <head>
 <title>Capston</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
- 	
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+	integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
+	crossorigin="anonymous"></script>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+	integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu"
+	crossorigin="anonymous">
+
 <link rel="stylesheet"
 	href="<c:url value="https://fonts.googleapis.com/css2?family=Jua&display=swap" />">
 <link rel="stylesheet" href="<c:url value="/resources/style.css" />">
@@ -134,14 +141,14 @@
 		<div id=content>
 			<div id="left">
 				<i class="fas fa-couch" aria-hidden="true"
-					style="position:relative; margin-left: 20px; margin-top: 270px; font-size: 3em; color: #482b19; width: 45px; float: left">
-	
+					style="position: relative; margin-left: 20px; margin-top: 270px; font-size: 3em; color: #482b19; width: 45px; float: left">
+
 				</i>
 				<div id="list">
 					<div id="kategorie">
 						<div id="find">
 							<ul class="Menu">
-                       			 <li id="type" class="mainMenu">Type
+								<li id="type" class="mainMenu">Type
 									<ul class="subMenu">
 										<li id="Type" onclick="findType(this)">Type</li>
 										<li id="bed" onclick="findType(this)">bed</li>
@@ -155,7 +162,7 @@
 									</ul>
 								</li>
 
-                        		<li id="brand" class="brandMenu">Brand
+								<li id="brand" class="brandMenu">Brand
 									<ul class="subMenu">
 										<li id="Brand" onclick="findBrand(this)">Brand</li>
 										<li id="IKEA" onclick="findBrand(this)">IKEA</li>
@@ -164,8 +171,8 @@
 									</ul>
 								</li>
 
-                        		<li id="color" class="colorMenu">Color
-                         		  <ul class="subMenu">
+								<li id="color" class="colorMenu">Color
+									<ul class="subMenu">
 										<li id="Color" onclick="findColor(this)">Color</li>
 										<li id="black" onclick="findColor(this)">black</li>
 										<li id="blue" onclick="findColor(this)">blue</li>
@@ -178,15 +185,15 @@
 									</ul>
 								</li>
 
-                        		<li id="price" class="price">Price
-		                          <ul class="priceMenu">
-		                              <li id="Price" onclick="findPrice(this)">Price</li>
-		                              <li id="가격1" onclick="findPrice(this)">0~30000</li>
-		                              <li id="가격2" onclick="findPrice(this)">30001~60000</li>
-		                              <li id="가격3" onclick="findPrice(this)">60001~90000</li>
-		                              <li id="가격4" onclick="findPrice(this)">90001~120000</li>
-		                              <li id="가격5" onclick="findPrice(this)">120001~200000</li>
-		                           </ul>
+								<li id="price" class="price">Price
+									<ul class="priceMenu">
+										<li id="Price" onclick="findPrice(this)">Price</li>
+										<li id="가격1" onclick="findPrice(this)">0~30000</li>
+										<li id="가격2" onclick="findPrice(this)">30001~60000</li>
+										<li id="가격3" onclick="findPrice(this)">60001~90000</li>
+										<li id="가격4" onclick="findPrice(this)">90001~120000</li>
+										<li id="가격5" onclick="findPrice(this)">120001~200000</li>
+									</ul>
 								</li>
 							</ul>
 						</div>
@@ -198,12 +205,9 @@
 
 					</div>
 
-					<div id="listview">
-					</div>
-					<div id="page">
-                  
-               		</div>
-	
+					<div id="listview"></div>
+					<div id="page"></div>
+
 				</div>
 			</div>
 
@@ -213,7 +217,7 @@
 
 			<div id="right">
 				<i class="fas fa-cart-arrow-down" aria-hidden="true"
-					style="position:relative; margin-right:23px;margin-top: 270px; font-size: 3em; color: #482b19; width: 45px; float: right;">
+					style="position: relative; margin-right: 23px; margin-top: 270px; font-size: 3em; color: #482b19; width: 45px; float: right;">
 				</i>
 				<div id="basket">
 					<div id="totalprice"></div>
@@ -356,22 +360,21 @@
 	            var temp = new Array();
 	           
 	            var html = '';
-	            
-	            //page부분
 	            var pagehtml ='';
 	            var totalpage;
-	            if(list.length%10==0){
+	            if(local.length%10==0){
 	               totalpage = parseInt(local.length/10);
 	            } else {
 	               totalpage = parseInt(local.length/10)+1;
 	            }
-	            var start = (page-1)*10+1;
+	            var start = (page-1)*10;
 	            var end = page*10-1;
 	            
 	            for(;start<=end;start++){
 	              if(start==local.length) break;
 	               tc.push({num : local[start].num, name : local[start].name, brand : local[start].brand, type : local[start].type, price : local[start].price, image : local[start].image, detail : local[start].detail, modeling : local[start].modeling }); 
 	            }
+
 	            if(tc.length == 0){
 	               $("#listview").empty();
 	            }else{
@@ -413,13 +416,42 @@
 	              }
 	              var pe = ps+9;
 	              
+	              if(ps!=1) pagehtml += '<a onclick="paging('+1+','+ps+')">'+'&nbsp;\<&nbsp;'+'</a>';
 	              for(;ps<=pe;ps++){
 	                 if(ps>totalpage) break;
-	                 pagehtml += '<a onclick="listContainerCreate(\''+ps+'\')">&nbsp;'+ps+'&nbsp;</a>';
+	                 pagehtml += '<a onclick="listContainerCreate('+ps+')">&nbsp;'+ps+'&nbsp;</a>';
 	              }
+	              if(pe<totalpage) pagehtml += '<a onclick="paging('+2+','+pe+')">'+'&nbsp;\>&nbsp;'+'</a>';
+	              
 	              $("#page").empty();
 	               $("#page").append(pagehtml); 
 	           }
+	       }
+	      function paging(check,startend){
+	          var ps;
+	          var pe;
+	          var pagehtml = '';
+	          var totalpage;
+	             if(local.length%10==0){
+	                totalpage = parseInt(local.length/10);
+	             } else {
+	                totalpage = parseInt(local.length/10)+1;
+	             }
+	          if(check==1){
+	             ps = startend - 10;
+	             pe = ps+9;
+	          } else {
+	             ps = startend + 1;
+	             pe = ps+9;
+	          }
+	            if(ps!=1) pagehtml += '<a onclick="paging('+1+','+ps+')">'+'&nbsp;\<&nbsp;'+'</a>';
+	            for(;ps<=pe;ps++){
+	               if(ps>totalpage) break;
+	               pagehtml += '<a onclick="listContainerCreate('+ps+')">&nbsp;'+ps+'&nbsp;</a>';
+	            }
+	            if(pe<totalpage) pagehtml += '<a onclick="paging('+2+','+pe+')">'+'&nbsp;\>&nbsp;'+'</a>';
+	            $("#page").empty();
+	             $("#page").append(pagehtml);
 	       }
 		function basketContainerCreate(list){
 			var tc = new Array();
