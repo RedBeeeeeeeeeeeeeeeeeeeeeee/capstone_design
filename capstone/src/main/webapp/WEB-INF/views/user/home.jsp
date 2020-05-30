@@ -68,8 +68,6 @@
 								<div class="modal-dialog modal-custom" role="document">
 									<!-- Modal content-->
 									<div class="modal-content">
-										<!--  <div class="modal-header" style="padding: 30px 30px;"> 					
-									</div> -->
 										<div class="modal-body"
 											style="padding: 5px 10px; height: 80px;">
 											<div class="fieldlabel">
@@ -167,7 +165,7 @@
 										<li id="Brand" onclick="findBrand(this)">Brand</li>
 										<li id="IKEA" onclick="findBrand(this)">IKEA</li>
 										<li id="LIVART" onclick="findBrand(this)">LIVART</li>
-										<li id="CASAMIA" onclick="findBrand(this)">CASAMIA</li>
+										<li id="ILOOM" onclick="findBrand(this)">ILOOM</li>
 									</ul>
 								</li>
 
@@ -188,11 +186,12 @@
 								<li id="price" class="price">Price
 									<ul class="priceMenu">
 										<li id="Price" onclick="findPrice(this)">Price</li>
-										<li id="가격1" onclick="findPrice(this)">0~30000</li>
-										<li id="가격2" onclick="findPrice(this)">30001~60000</li>
-										<li id="가격3" onclick="findPrice(this)">60001~90000</li>
-										<li id="가격4" onclick="findPrice(this)">90001~120000</li>
-										<li id="가격5" onclick="findPrice(this)">120001~200000</li>
+										<li id="가격1" onclick="findPrice(this)">0~200000</li>
+										<li id="가격2" onclick="findPrice(this)">200001~400000</li>
+										<li id="가격3" onclick="findPrice(this)">400001~600000</li>
+										<li id="가격4" onclick="findPrice(this)">600001~800000</li>
+										<li id="가격5" onclick="findPrice(this)">800001~1000000</li>
+										<li id="가격5" onclick="findPrice(this)">1000001~</li>
 									</ul>
 								</li>
 							</ul>
@@ -241,6 +240,7 @@
 
 	<script type="text/javascript">
 		
+	
 		function userModalPop(){
 			$('#userInfoModal').modal('show');
 		}
@@ -267,7 +267,7 @@
 			brand = document.getElementById('brand');
 			brand.innerHTML = "<li id = 'brand' class = 'brandMenu' style = 'list-style:none'>"
 					+ e.innerText
-					+"<ul class='subMenu'><li id='Brand' onclick='findBrand(this)'>Brand</li><li id='IKEA' onclick='findBrand(this)'>IKEA</li>	<li id='LIVART' onclick='findBrand(this)'>LIVART</li>	<li id='CASAMIA' onclick='findBrand(this)'>CASAMIA</li></ul></li>"
+					+"<ul class='subMenu'><li id='Brand' onclick='findBrand(this)'>Brand</li><li id='IKEA' onclick='findBrand(this)'>IKEA</li>	<li id='LIVART' onclick='findBrand(this)'>LIVART</li>	<li id='ILOOM' onclick='findBrand(this)'>ILOOM</li></ul></li>"
 		}
 		
 		function findColor(e){
@@ -281,79 +281,9 @@
 			 price = document.getElementById('price');
 		     price.innerHTML = "<li id = 'price'  class = 'price' style = 'list-style:none'>"
 					+ e.innerText
-			        + "<ul class='priceMenu'><li id='Price' onclick='findPrice(this)'>Price</li><li id='가격1' onclick='findPrice(this)'>0~30000</li><li id='가격2' onclick='findPrice(this)'>30001~60000</li><li id='가격3' onclick='findPrice(this)'>60001~90000</li><li id='가격4' onclick='findPrice(this)'>90001~120000</li><li id='가격5' onclick='findPrice(this)'>120001~200000</li></ul></li>"
-		}
+			        + "<ul class='priceMenu'><li id='Price' onclick='findPrice(this)'>Price</li><li id='가격1' onclick='findPrice(this)'>0~200000</li><li id='가격2' onclick='findPrice(this)'>200001~400000</li><li id='가격3' onclick='findPrice(this)'>400001~600000</li><li id='가격4' onclick='findPrice(this)'>600001~800000</li><li id='가격5' onclick='findPrice(this)'>800001~1000000</li><li id='가격5' onclick='findPrice(this)'>1000001~</li></ul></li>";
+			}
 		
-		function listContainerCreate(list){
-            var tc = new Array();
-            var temp = new Array();
-           
-            var html = '';
-            
-            //page부분
-            var pagehtml ='';
-            var totalpage;
-            if(list.length%10==0){
-               totalpage = parseInt(local.length/10);
-            } else {
-               totalpage = parseInt(local.length/10)+1;
-            }
-            var start = (page-1)*10;
-            var end = page*10-1;
-
-			for(var i = 0 in list){
-				tc.push({num : list[i].num, name : list[i].name, brand : list[i].brand, type : list[i].type, price : list[i].price, image : list[i].image, detail : list[i].detail, modeling : list[i].modeling }); 
-			}
-			if(tc.length == 0){
-				html += '<p style="font-size:20px;font-family:Jua, sans-serif; margin-top:270px; text-align:center;">일치하는 가구가 없습니다.</p>';
-				$("#listview").empty();
-				$("#listview").append(html);	
-			}else{
-				for(key in tc){
-					html += '<table border = "1" width="100%" height="30%">';
-				    html += '<tr>';
-				    html += '<td rowspan="4" width="20%"><img src="' + tc[key].image + '" height="100"/></td>';
-				    html += '<td colspan="3" height ="30%" style="font-size:25px; font-family:Jua, sans-serif;";>' + tc[key].name + '</td>';
-				    html += '</tr>';
-				    html += '<tr>';
-				    html += '<td colspan="3"height ="20%"; style="font-size:15px; font-family:Jua, sans-serif;">' + tc[key].brand + '</td>';
-				    html += '</tr>';
-				    html += '<tr>';
-				    html += '<td colspan = "3"height ="30%" style="font-size:20px; font-family:Jua, sans-serif;">' + tc[key].price + '원</td>';
-				    html += '</tr>';
-				    html += '<tr>';
-				    html += "<td width='20%'height ='20%'><button class = 'btn' onclick = 'insertbasket("+tc[key].num+")' style='width:100%; height:100%;align:center; background-color:#ededed; border:white 0px; outline:0; font-size:15px; font-family:Jua, sans-serif;'>장바구니</button></td>";
-				    html += '<td width="20%"height ="20%"><button class = "btn" onclick="add(\'' + tc[key].num + '\',\'' + tc[key].modeling + '\')" style=" width:100%; height:100%; align:center background-color:#ededed; border:white 0px; outline:0;font-size:15px; font-family:Jua, sans-serif; ">가구 추가</button></td>';
-					html += '<td width="20%"height ="20%"><button class = "btn" onclick = "window.open(\'' + tc[key].detail + '\')" target="_blank" style=" width:100%; height:100%; align:center background-color:#ededed; border:white 0px; outline:0; font-size:15px; font-family:Jua, sans-serif;">구매 링크</button></td>';
-					html += '</tr>';
-					html += '</table>';	
-				}
-				$("#listview").empty();
-				$("#listview").append(html);	
-				$('.btn').on({
-				    mouseenter: function(){$(this).css('background-color','#dedede');},
-				    mouseleave: function(	){$(this).css('background-color','#ededed');}
-				});
-	            
-				if(tc.length == 0){
-	                  $("#page").empty();
-	           	}else{
-	            var ps;
-	              if(page%10==0){
-	                 ps = page-9;
-	              } else {
-	                 ps = parseInt(page/10)*10+1;
-	              }
-	              var pe = ps+9;
-	              for(;ps<=pe;ps++){
-	                 if(ps>totalpage) break;
-	                 pagehtml += '<a onclick="listContainerCreate(\''+ps+'\')">'+ps+'</a>';
-	              }
-	              $("#page").empty();
-	               $("#page").append(pagehtml); 
-	           }
-			}
-		}
 		
 	      function listContainerCreate(page){
 	            var tc = new Array();
@@ -376,24 +306,27 @@
 	            }
 
 	            if(tc.length == 0){
-	               $("#listview").empty();
-	            }else{
+					html = '<p style="font-size:20px;font-family:Jua, sans-serif; margin-top:250px; text-align:center;">일치하는 가구가 없습니다.</p>';
+					$("#listview").empty();
+					$("#listview").append(html);	
+				}else{
 	               for(key in tc){
-	                  html += '<table border = "1" width="100%" height="30%">';
+	                   var price = tc[key].price.toString();
+	                   html += '<table border = "1" width="100%" height="30%">';
 	                   html += '<tr>';
-	                   html += '<td rowspan="4" width="20%"><img src="' + tc[key].image + '" height="100"/></td>';
-	                   html += '<td colspan="3" height ="30%"><strong style="font-size:25px; font-family:Jua, sans-serif;">' + tc[key].name + '</strong></td>';
+	                   html += '<td rowspan="4" width="20%"  style = "text-align:center"><img src="' + tc[key].image + '" height="140"/></td>';
+	                   html += '<td colspan="3" height ="30%" style="font-size:25px; font-family:Jua, sans-serif;">' + tc[key].name + '</td>';
 	                   html += '</tr>';
 	                   html += '<tr>';
-	                   html += '<td colspan="3"height ="20%">' + tc[key].brand + '</td>';
+	                   html += '<td colspan="3"height ="20%" style="font-size:15px; font-family:Jua, sans-serif;">' + tc[key].brand + '</td>';
 	                   html += '</tr>';
 	                   html += '<tr>';
-	                   html += '<td colspan = "3"height ="30%" style = "font-size:20px">' + tc[key].price + '원</td>';
+	                   html += '<td colspan = "3"height ="30%" style = "font-size:20px; font-family:Jua, sans-serif;">' +price.replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
 	                   html += '</tr>';
 	                   html += '<tr>';
-	                   html += "<td width='20%'height ='20%'><button class = 'btn' onclick = 'insertbasket("+tc[key].num+")' style='width:100%; height:100%;align:center; background-color:#ededed; border:white 0px; outline:0; '>장바구니</button></td>";
-	                   html += '<td width="20%"height ="20%"><button class = "btn" onclick="add(\'' + tc[key].num + '\',\'' + tc[key].modeling + '\')" style=" width:100%; height:100%; align:center background-color:#ededed; border:white 0px; outline:0; ">가구 추가</button></td>';
-	                  html += '<td width="20%"height ="20%"><button class = "btn" onclick = "window.open(\'' + tc[key].detail + '\')" target="_blank" style=" width:100%; height:100%; align:center background-color:#ededed; border:white 0px; outline:0; ">구매 링크</button></td>';
+	                   html += "<td width='20%'height ='20%'><button class = 'btn' onclick = 'insertbasket("+tc[key].num+")' style='width:100%; height:100%;align:center; background-color:#ededed; border:white 0px; outline:0; font-family:Jua, sans-serif;'>장바구니</button></td>";
+	                   html += '<td width="20%"height ="20%"><button class = "btn" onclick="add(\'' + tc[key].num + '\',\'' + tc[key].modeling + '\')" style=" width:100%; height:100%; align:center background-color:#ededed; border:white 0px; outline:0;font-family:Jua, sans-serif; ">가구 추가</button></td>';
+	                  html += '<td width="20%"height ="20%"><button class = "btn" onclick = "window.open(\'' + tc[key].detail + '\')" target="_blank" style=" width:100%; height:100%; align:center background-color:#ededed; border:white 0px; outline:0;font-family:Jua, sans-serif; ">구매 링크</button></td>';
 	                  html += '</tr>';
 	                  html += '</table>';   
 	               }
@@ -454,6 +387,7 @@
 	             $("#page").append(pagehtml);
 	       }
 		function basketContainerCreate(list){
+			var checkId = "${sessionScope.loginUser.id}";
 			var tc = new Array();
 			var html = '';
 			var totalprice = 0;
@@ -466,26 +400,28 @@
 				$("#basketview").empty();
 			}else{
 	        	for(key in tc){
+	                var price = tc[key].price.toString();
 	                html += '<table border = "1" width="100%" height="30%">';
 	                html += '<tr>';
-	                html += '<td rowspan="4" width="20%"><img src="' + tc[key].image + '" height="100"/></td>';
-	                html += '<td colspan="3"height ="30%" style="font-size:25px; font-family:Jua, sans-serif;">' + tc[key].name + '</strong></td>';
+	                html += '<td rowspan="4" width="20%" style = "text-align:center"><img src="' + tc[key].image + '" height="150"/></td>';
+	                html += '<td colspan="3"height ="30%" style="font-size:25px; font-family:Jua, sans-serif;">' + tc[key].name + '</td>';
 	                html += '</tr>';
 	                html += '<tr>';
 	                html += '<td colspan="3"height ="20%" style="font-size:15px; font-family:Jua, sans-serif;">' + tc[key].brand + '</td>';
 	                html += '</tr>';
 	                html += '<tr>';
-	                html += '<td colspan = "3"height ="30%" style="font-size:20px; font-family:Jua, sans-serif;">' + tc[key].price + '원</td>';
+	                html += '<td colspan = "3"height ="30%" style="font-size:20px; font-family:Jua, sans-serif;">' +price.replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
 	                html += '</tr>';
 	                html += '<tr>';
-	                html += "<td width='20%' height ='20%'><button onclick = 'count("+tc[key].num+","+tc[key].count+",1)' style = 'height:100%; float:left; font-family:Jua, sans-serif;'>-</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label style='font-size:15px; font-family:Jua, sans-serif; margin-top:6px;'>"+tc[key].count+"</label><button onclick = 'count("+tc[key].num+","+tc[key].count+",2)' style = 'height:100%; float:right; font-family:Jua, sans-serif;'>+</button></td>";
+	                html += "<td width='20%' height ='20%'><button onclick = 'count("+tc[key].num+","+tc[key].count+",1)' style = 'height:100%; float:left; font-family:Jua, sans-serif;'>-</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label style='font-size:15px; font-family:Jua, sans-serif; margin-top:6px;'>"+tc[key].count+"</label><button onclick = 'count("+tc[key].num+","+tc[key].count+",2)' style = 'height:100%; float:right; font-family:Jua, sans-serif;'>+</button></td>";
 	                html += "<td width='20%' height ='20%'><button class = 'btn' onclick = 'deletebasket("+tc[key].num+")' style='width:100%; height:100%;align:center; background-color:#ededed; border:white 0px; outline:0; font-size:15px; font-family:Jua, sans-serif;'>장바구니 삭제</button></td>";
 	                html += '<td width="20%" height ="20%"><button class = "btn" onclick ="window.open(\'' + tc[key].detail + '\')" style="width:100%; height:100%;align:center; background-color:#ededed; border:white 0px; outline:0;font-size:15px; font-family:Jua, sans-serif;">구매 링크</button></td>';   
 	                html += '</tr>';
 	            	html += '</table>';
 	            }
 				$("#basketview").empty().append(html);
-				$("#totalprice").empty().append("<label style = 'float:right; font-size:25px; margin-right:30px; font-family:Jua, sans-serif;'>총 금액 :   "+totalprice+" 원</label>");
+				
+				$("#totalprice").empty().append("<label style = 'float:right; font-size:25px; margin-right:30px; font-family:Jua, sans-serif;'>총 금액 :   "+totalprice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원</label>");
 				$('.btn').on({
 				    mouseenter: function(){$(this).css('background-color','#dedede');},
 				    mouseleave: function(	){$(this).css('background-color','#ededed');}
@@ -522,6 +458,26 @@
 			})
 		}
 
+		 function logoutCall2(){
+			 $.ajax({
+					url : "jquery/logout2.do",
+					type:'POST',
+					success:function(data){
+						if(data==1){
+							location.href="/";
+						}else {
+							alert("에러");
+							return false;
+						}
+					},
+					error:function(e){
+						 alert(e.responseText);	       },
+				     complete : function(data) {
+				        //alert("complete : " + data);
+				     }
+					
+				})
+		 }
 		
 		window.onload = reloadbasket();
 		window.onload = showList();
@@ -538,6 +494,8 @@
 					}
 				})
 			}else{
+				var html = '<p style="font-size:20px;font-family:Jua, sans-serif; margin-top:250px; text-align:center;">로그인 하세요.</p>';
+				$("#basketview").empty().append(html);
 			}
 		}
 		

@@ -26,10 +26,10 @@ public class UserController {
 
 	@Autowired
 	UserService userService;
-	
+
 	@Autowired
 	ListService listService;
-	
+
 
 	@RequestMapping(value = "/jquery/logout.do",method = RequestMethod.POST)
 	public @ResponseBody String logout(HttpServletRequest httpServletRequest) {
@@ -37,6 +37,15 @@ public class UserController {
 		session.invalidate();
 		return "1";
 	}
+	
+	@RequestMapping("/jquery/logout2.do")
+	public @ResponseBody String logout2(Lists list, HttpServletRequest httpServletRequest) throws IOException{
+		HttpSession session = httpServletRequest.getSession();
+		session.invalidate();
+	//	ILOOMScraping(list);
+		return "1";
+	}
+	
 
 	@RequestMapping(value="/jquery/login.do",method = RequestMethod.POST)
 	public @ResponseBody String login(Members members,HttpSession session, HttpServletRequest httpServletRequest) {
@@ -98,13 +107,13 @@ public class UserController {
 		ModelAndView mav = new ModelAndView();
 		return mav;
 	}
-	
+
 	@RequestMapping(value="user/manual",method = RequestMethod.GET)
 	public ModelAndView manual() {
 		ModelAndView mav = new ModelAndView();
 		return mav;
 	}
-	
+
 	@RequestMapping(value="/jquery/save.do",method = RequestMethod.POST)
 	public @ResponseBody int save(Members member,HttpSession session, HttpServletRequest httpServletRequest) {
 		int save  = userService.setFurn(httpServletRequest.getParameter("ID"),httpServletRequest.getParameter("route"));
@@ -122,28 +131,28 @@ public class UserController {
 		}
 		return ret;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
+
+
 	Document doc;
-	
-	
+
+
 	public void LIVARTScraping(Lists list) throws IOException{
 		String[] domain = { "http://mall.hyundailivart.co.kr/front/category1List_org.lv?cate1cd=CATE00000001", 
 				"http://mall.hyundailivart.co.kr/front/category1List_org.lv?cate1cd=CATE00000003",
 				"http://mall.hyundailivart.co.kr/front/category1List_org.lv?cate1cd=CATE00000004",
 				"http://mall.hyundailivart.co.kr/front/category1List_org.lv?cate1cd=CATE00000002"
-				};
-		String[] types = { "bad", "table", "chair", "sofa"};
+		};
+		String[] types = { "bed", "table", "chair", "sofa"};
 		String URL="";
 		Document doc2;
 		Elements elem, ielem;
@@ -153,29 +162,17 @@ public class UserController {
 		String brand = "LIVART";
 		int idx = 0;
 		String name = "";
-		
-		
-		
-		System.out.println("livart 시작");
 		try {
 			for(int i = 0 ; i < 4 ; i++ ) {
 				doc = Jsoup.connect(domain[i]).get();
-				//elem = doc.select("div[class=\"range-page-title\"]");
 				list.setType(types[i]);
 				list.setBrand(brand);
 				list.setColor("brown");
 				list.setModeling("X");
-				
-				/*
-				OutputStream output = new FileOutputStream("Output.txt");
-			    String str = doc.html();
-			    byte[] by=str.getBytes();
-			    output.write(by);
-				*/
-				
+
 				elem = doc.select("div[class=\"txtArea\"]");
 				ielem = doc.select("div[class=\"imgArea\"]");
-				
+
 				for(Element e : elem.select("a[href]")) {
 					if(!URL.equals(e.attr("abs:href"))) {
 						im = ielem.select("img[src]").first();
@@ -185,26 +182,19 @@ public class UserController {
 						doc2 = Jsoup.connect(URL).get();
 						list.setDetail(URL);
 						list.setNum(num++);
-						
-						/*
-						pelem = doc2.select("div[class=\"detailLarge\"]");
-						list.setImage(pelem.select("img[src]").attr("abs:src"));
-						*/
+
+
 						pelem = doc2.select("div[class=\"detailHeader\"]");
 						name = pelem.select("h3").text();
-						System.out.println(name + " : " + name.indexOf('['));
-						
+				
 						list.setName(name.substring(name.indexOf(']')+1));
 						pelem = doc2.select("span[class=\"del\"]");
-						//System.out.println("current : " + list.getDetail() + "   " + list.getName());
 						StringBuilder temp = new StringBuilder(pelem.select("span[class=\"font-num\"]").text());
-						System.out.println("price : " + temp);
 						while((idx = temp.indexOf(",")) != -1) {
 							temp.deleteCharAt(idx);
 						}
 						list.setPrice(Integer.parseInt(temp.toString()));
-						listService.insertFurn(list);
-						//System.out.println(list.toString());
+				//		listService.insertFurn(list);
 					}
 				}
 
@@ -213,7 +203,7 @@ public class UserController {
 			e.printStackTrace();
 		}
 	}
-	
+
 	// IKEA 가구중에서 책상 카테고리 제품 크롤링 테스트
 	public void IKEAScraping(Lists list) throws IOException {
 		String[] domain = { "https://www.ikea.com/kr/ko/cat/tables-desks-fu004/?page=5", 
@@ -232,10 +222,6 @@ public class UserController {
 		String brand = "IKEA";
 		int idx = 0;
 		int count = 0;
-		
-		
-		
-		System.out.println("test 시작");
 		try {
 			for(int i = 0 ; i < 8 ; i++ ) {
 				doc = Jsoup.connect(domain[i]).get();
@@ -244,9 +230,9 @@ public class UserController {
 				list.setBrand(brand);
 				list.setColor("brown");
 				list.setModeling("X");
-				
+
 				elem = doc.select("div[class=\"product-compact__spacer\"]");
-				
+
 				for(Element e : elem.select("a[href]")) {
 					if(!URL.equals(e.attr("abs:href"))) {
 						count++;
@@ -254,27 +240,87 @@ public class UserController {
 						doc2 = Jsoup.connect(URL).get();
 						list.setDetail(URL);
 						list.setNum(num++);
-						
+
 						pelem = doc2.select("div[class=\"range-carousel__image\"]");
 						list.setImage(pelem.select("img[src]").attr("abs:src"));
-						
+
 						pelem = doc2.select("div[class=\"product-pip__right-container\"]");
 						list.setName(pelem.select("span[class=\"product-pip__name\"]").text());
-						//list.setPrice(pelem.select("span[class=\"product-pip__price__value\"]").text());
 						StringBuilder temp = new StringBuilder(pelem.select("span[class=\"product-pip__price__value\"]").text().substring(2));
 						while((idx = temp.indexOf(",")) != -1) {
 							temp.deleteCharAt(idx);
 						}
 						list.setPrice(Integer.parseInt(temp.toString()));
-						listService.insertFurn(list);
-						System.out.println(list.toString());
+			//			listService.insertFurn(list);
 					}
 				}
-				System.out.println(i + " : " + count);
 				count = 0;
 			}
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
 	}
+	
+	public void ILOOMScraping(Lists list) throws IOException{
+	      String[] domain = { "https://www.iloom.com/product/item.do?categoryNo=8", 
+	            "https://www.iloom.com/product/item.do?categoryNo=9",
+	            "https://www.iloom.com/product/item.do?categoryNo=13",
+	            "https://www.iloom.com/product/item.do?categoryNo=17",
+	            "https://www.iloom.com/product/item.do?categoryNo=16",
+	            "https://www.iloom.com/product/item.do?topParent=10&categoryNo=210&depth=2",
+	            "https://www.iloom.com/product/item.do?categoryNo=31"
+	            };
+	      
+	      String[] type = {"bed", "closet", "sofa", "table", "shelf", "cabinet", "chair"};
+	      String URL="";
+	      Document doc2;
+	      Elements elem;
+	      Elements pelem;
+	      int num = 261;
+	      String brand = "ILOOM";
+	      int idx = 0;
+	      int k = 0;
+
+	      try {
+	         for(int i = 0 ; i < 7 ; i++ ) {
+	            doc = Jsoup.connect(domain[i]).get();
+	            list.setType(type[i]);
+	            list.setBrand(brand);
+	            list.setColor("brown");
+	            list.setModeling("X");
+	            
+	            
+	            elem = doc.select("p[class=\"image\"]");
+	            for(Element e : elem) {
+	                  StringBuilder subURL = new StringBuilder(e.attr("abs:onclick"));
+	                  URL = "https://www.iloom.com" + subURL.substring(subURL.indexOf("\'")+1, subURL.lastIndexOf("\'"));
+	                  doc2 = Jsoup.connect(URL).get();
+	                  list.setDetail(URL);
+	                  list.setNum(num++);
+	                  
+	                  pelem = doc2.select("div[class=\"magnifyImg\"]");
+	                  list.setImage(e.select("img[src]").attr("abs:src"));               
+	                  pelem = doc2.select("div[class=\"contents_title\"]");
+	                  while(!pelem.get(k).hasText()) {
+	                     k++;
+	                  }
+	                  list.setName(pelem.get(k).text());
+	                  k=0;
+	                  StringBuilder temp = new StringBuilder(doc2.select("div[class=\"price f25 noto\"]").text());
+	                  while((idx = temp.indexOf(",")) != -1) {
+	                     temp.deleteCharAt(idx);
+	                  }
+	                  list.setPrice(Integer.parseInt(temp.substring(0,temp.length()-1)));
+	              //    listService.insertFurn(list);
+	            }
+	            
+	         }
+	      } catch(IOException e) {
+	         e.printStackTrace();
+	      } finally {}
+	   }
+
+
+
+
 }

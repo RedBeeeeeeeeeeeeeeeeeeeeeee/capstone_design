@@ -320,28 +320,36 @@ function login(userid,userpw){
 }
 
 function signUpValidation(){
-   
-   var userId = $("#signup_userId").val();
-   var userPw = $("#signup_password").val();
-   var userPwCheck = $("#signup_passwordCheck").val();
-   var email = $("#signup_email").val() + '@' + $("#domain").val();
-   if(!userId){
-      alert("아이디 입력은 필수입니다.");
-      $("#signup_userId").focus();
-   }else if(!userPw){
-      alert("비밀번호 입력은 필수입니다.");
-      $("#signup_password").focus();
-   }else if(!userPwCheck){
-      alert("비밀번호 확인 입력은 필수입니다.");
-      $("#signup_passwordCheck").focus();
-   }else if(userPw != userPwCheck){
-      alert("비밀번호가 맞지 않습니다.");
-      $("#signup_userPwCheck").focus();
-   }else {
-      signUp(userId, userPw, email);
-   }
-   
-}
+	   
+	   var userId = $("#signup_userId").val();
+	   var userPw = $("#signup_password").val();
+	   var userPwCheck = $("#signup_passwordCheck").val();
+	   var email = $("#signup_email").val() + '@' + $("#domain").val();
+	   var domain = $("#domain").val();
+	   
+	   if(!userId){
+	      alert("아이디 입력은 필수입니다.");
+	      $("#signup_userId").focus();
+	   }else if(!userPw){
+	      alert("비밀번호 입력은 필수입니다.");
+	      $("#signup_password").focus();
+	   }else if(!userPwCheck){
+	      alert("비밀번호 확인 입력은 필수입니다.");
+	      $("#signup_passwordCheck").focus();
+	   }else if(userPw != userPwCheck){
+	      alert("비밀번호가 맞지 않습니다.");
+	      $("#signup_userPwCheck").focus();      
+	   }else if(!email){
+	      alert("이메일 입력은 필수입니다.");
+	      $("#signup_email").focus();
+	   } else if(!domain){
+	      alert("이메일 도메인을 선택해주세요.");
+	      $("#domain").focus();
+	   }else {
+	      signUp(userId, userPw, email);
+	   }
+	   
+	}
 
 
 function signUp(id, pw, email){
