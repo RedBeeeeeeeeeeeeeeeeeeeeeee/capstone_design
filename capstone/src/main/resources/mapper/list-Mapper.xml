@@ -15,10 +15,18 @@
 				AND color = #{color}
 			</if>
 			<if test="price != 'Price'">
-				AND price BETWEEN #{price} AND #{maxPrice}
+				<choose>
+					<when test= "maxPrice != 'max'">
+						AND price BETWEEN #{price} AND #{maxPrice}
+					</when>
+					<when test="maxPrice == 'max'">
+						AND price >= #{price} 
+					</when>
+				</choose>	
 			</if>
+			
 		</where>
-		ORDER BY modeling
+		ORDER BY modeling, price
 	</select>
 	
 	<insert id="insertFurn">

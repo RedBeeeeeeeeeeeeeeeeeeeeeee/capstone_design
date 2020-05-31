@@ -24,7 +24,8 @@ public class ListDAO {
 		} else {
 			String[] temp = price.split("~");
 			map.put("price", temp[0]);
-			map.put("maxPrice", temp[1]);
+			if(temp.length == 1) map.put("maxPrice", "max");
+			else map.put("maxPrice", temp[1]);
 		}
 		return sqlSession.selectList("getListOne",map);
 	}
