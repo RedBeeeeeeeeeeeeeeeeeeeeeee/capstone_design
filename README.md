@@ -1,4 +1,8 @@
-#MJU computer engineering capstone design(2020 spring)
+## Award
+![KakaoTalk_20200916_110746261](https://user-images.githubusercontent.com/43517509/93285427-c3b77700-f80f-11ea-80aa-e18b7d73ed25.jpg)
+
+<br>
+<br>
 
 
 ![기본](https://user-images.githubusercontent.com/43517509/93279627-b34ccf80-f802-11ea-81b5-fd9bef81b6b3.PNG)
