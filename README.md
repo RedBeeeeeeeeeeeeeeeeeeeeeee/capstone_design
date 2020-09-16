@@ -9,7 +9,6 @@
 ## Explanation ([Demonstration video](https://www.youtube.com/watch?v=ag66wZfQqsU))
 3D로 모델링 된 가구를 직접 배치하여 자신의 집을 커스터마이징 하는 사이트로 풀 스텍 담당<br>
 <br>
-Spring MVC 프로젝트를 사용하여 Rest API, JSP 생성<br>
 Ajax를 이용한 비동기통신<br>
 Mybatis를 사용하여 편의성 및 간결성 보장<br>
 <br>
