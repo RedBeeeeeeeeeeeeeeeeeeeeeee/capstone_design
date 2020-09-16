@@ -9,8 +9,11 @@
 ## Explanation ([Demonstration video](https://www.youtube.com/watch?v=ag66wZfQqsU))
 3D로 모델링 된 가구를 직접 배치하여 자신의 집을 커스터마이징 하는 사이트로 풀 스텍 담당<br>
 <br>
-Ajax를 이용한 비동기통신<br>
+DB 설계를 위해 Erwin을 사용하여 E-R 다이어그램 생성<br>
+Jsoup 라이브러리를 활용하여 데이터 크롤링<br>
+JQuery의 Ajax를 이용한 비동기통신<br>
 Mybatis를 사용하여 편의성 및 간결성 보장<br>
+HTML, CSS< JavaScript를 사용한 Front 구축<br>
 <br>
 <br>홈 화면<br>
 <center><img src="https://user-images.githubusercontent.com/43517509/93279627-b34ccf80-f802-11ea-81b5-fd9bef81b6b3.PNG" width="800" height="500"></center>
